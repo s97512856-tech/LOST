@@ -16,21 +16,28 @@
         section{padding:100px 40px;max-width:900px;margin:0 auto}
         #hero{padding-top:180px;text-align:center}
         #hero h1{font-size:4rem;font-weight:800;letter-spacing:4px;margin-bottom:10px}
-        #hero p{color:#888;font-size:1.2rem;margin-bottom:30px}
+        #hero p{color:#888;font-size:1.2rem;margin-bottom:5px}
+        #hero .ar{color:#22c55e;font-size:1rem;margin-bottom:25px}
         .btn{display:inline-block;padding:12px 30px;background:#22c55e;color:#0a0a0a;text-decoration:none;font-weight:600;border-radius:6px;transition:.3s}
         .btn:hover{background:#16a34a;transform:translateY(-2px)}
         h2{font-size:2rem;margin-bottom:40px;color:#22c55e;text-align:center}
+        h2 small{display:block;font-size:.9rem;color:#888;margin-top:4px}
         .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
         .card{background:#111;border:1px solid #222;border-radius:10px;padding:25px;transition:.3s;opacity:0;cursor:pointer}
         .card:hover{border-color:#22c55e;transform:translateY(-4px)}
-        .card h3{font-size:1.1rem;margin-bottom:10px}
-        .card p{color:#888;font-size:.9rem;margin-bottom:15px}
+        .card h3{font-size:1.1rem;margin-bottom:5px}
+        .card .ar{color:#888;font-size:.8rem;margin-bottom:10px}
+        .card p{color:#aaa;font-size:.9rem;margin-bottom:5px}
+        .card .p-ar{color:#666;font-size:.8rem;margin-bottom:15px}
         .price{color:#22c55e;font-weight:700;font-size:1.1rem}
-        #about p{color:#aaa;font-size:1.05rem;text-align:center;max-width:600px;margin:0 auto}
+        #about p{color:#aaa;font-size:1.05rem;text-align:center;max-width:600px;margin:0 auto 10px}
+        #about .ar{color:#666;font-size:.9rem;text-align:center;max-width:600px;margin:0 auto}
         #contact{text-align:center}
-        #contact p{color:#888;margin-bottom:20px}
+        #contact p{color:#888;margin-bottom:5px}
+        #contact .ar{color:#666;font-size:.9rem;margin-bottom:20px}
         .discord{display:inline-block;padding:12px 30px;border:1px solid #22c55e;border-radius:6px;color:#22c55e;font-weight:600;font-size:1.1rem}
         footer{text-align:center;padding:30px;color:#444;font-size:.85rem}
+        footer .ar{color:#333;font-size:.8rem}
         @media (max-width:600px){nav{padding:15px 20px;flex-direction:column;gap:10px}#hero h1{font-size:2.5rem}section{padding:80px 20px}}
     </style>
 </head>
@@ -47,33 +54,77 @@
     <section id="hero">
         <h1>LOST</h1>
         <p>Web development & automation solutions</p>
+        <div class="ar">حلول برمجية وتطوير مواقع وبوتات</div>
         <a href="#services" class="btn">View Services</a>
     </section>
 
     <section id="services">
-        <h2>Services</h2>
+        <h2>Services <small>الخدمات</small></h2>
         <div class="grid">
-            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>Website Development</h3><p>Clean, responsive websites built with HTML, CSS, and JavaScript.</p><span class="price">$15–$40</span></div>
-            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>WordPress Setup & Fixes</h3><p>Theme customization, plugin configuration, and bug fixes.</p><span class="price">$10–$30</span></div>
-            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>Discord Bot Development</h3><p>Custom bots for moderation, music, games, and automation.</p><span class="price">$20–$50</span></div>
-            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>Figma to HTML</h3><p>Convert your design into pixel-perfect, responsive code.</p><span class="price">$20–$40</span></div>
-            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>Bug Fixing</h3><p>Fix layout, logic, or functionality issues in your code.</p><span class="price">$15–$30</span></div>
-            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>Automation Scripts</h3><p>Python or JavaScript scripts to automate repetitive tasks.</p><span class="price">$15–$35</span></div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>Website Development</h3>
+                <div class="ar">تطوير مواقع</div>
+                <p>Clean, responsive websites built with HTML, CSS, and JavaScript.</p>
+                <div class="p-ar">مواقع متجاوبة ونظيفة</div>
+                <span class="price">$15–$40</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>WordPress Setup & Fixes</h3>
+                <div class="ar">ووردبريس</div>
+                <p>Theme customization, plugin configuration, and bug fixes.</p>
+                <div class="p-ar">تعديل ثيمات وإصلاح أخطاء</div>
+                <span class="price">$10–$30</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>Discord Bot Development</h3>
+                <div class="ar">بوتات دسكورد</div>
+                <p>Custom bots for moderation, music, games, and automation.</p>
+                <div class="p-ar">بوتات إدارة، موسيقى، وألعاب</div>
+                <span class="price">$20–$50</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>Figma to HTML</h3>
+                <div class="ar">تصميم إلى كود</div>
+                <p>Convert your design into pixel-perfect, responsive code.</p>
+                <div class="p-ar">تحويل التصميم إلى كود</div>
+                <span class="price">$20–$40</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>Bug Fixing</h3>
+                <div class="ar">إصلاح أخطاء</div>
+                <p>Fix layout, logic, or functionality issues in your code.</p>
+                <div class="p-ar">إصلاح مشاكل المواقع</div>
+                <span class="price">$15–$30</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>Automation Scripts</h3>
+                <div class="ar">سكريبتات أتمتة</div>
+                <p>Python or JavaScript scripts to automate repetitive tasks.</p>
+                <div class="p-ar">أتمتة المهام المتكررة</div>
+                <span class="price">$15–$35</span>
+            </div>
         </div>
     </section>
 
     <section id="about">
-        <h2>About</h2>
+        <h2>About <small>عنّي</small></h2>
         <p>A developer focused on building clean, functional web solutions. I work with HTML, CSS, JavaScript, and Python to create websites, bots, and automation tools. Every project is built with attention to detail and performance.</p>
+        <div class="ar">مطور متخصص في تصميم مواقع وبوتات وحلول برمجية. كل مشروع ينبنى بعناية وأداء عالي.</div>
     </section>
 
     <section id="contact">
-        <h2>Contact</h2>
-        <p>Available on Discord for fast communication.<br>Payments via PayPal.</p>
+        <h2>Contact <small>تواصل</small></h2>
+        <p>Available on Discord for fast communication.</p>
+        <div class="ar">متوفر على دسكورد للتواصل السريع</div>
+        <p>Payments via PayPal</p>
+        <div class="ar">الدفع عبر باي بال</div>
         <div class="discord">@root_0351</div>
     </section>
 
-    <footer><p>&copy; 2026 LOST. All rights reserved.</p></footer>
+    <footer>
+        <p>&copy; 2026 LOST. All rights reserved.</p>
+        <div class="ar">جميع الحقوق محفوظة</div>
+    </footer>
 
     <script>
         document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const el=document.querySelector(a.getAttribute('href'));if(el)el.scrollIntoView({behavior:'smooth'})})});
