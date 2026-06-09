@@ -21,7 +21,7 @@
         .btn:hover{background:#16a34a;transform:translateY(-2px)}
         h2{font-size:2rem;margin-bottom:40px;color:#22c55e;text-align:center}
         .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-        .card{background:#111;border:1px solid #222;border-radius:10px;padding:25px;transition:.3s;opacity:0}
+        .card{background:#111;border:1px solid #222;border-radius:10px;padding:25px;transition:.3s;opacity:0;cursor:pointer}
         .card:hover{border-color:#22c55e;transform:translateY(-4px)}
         .card h3{font-size:1.1rem;margin-bottom:10px}
         .card p{color:#888;font-size:.9rem;margin-bottom:15px}
@@ -53,12 +53,12 @@
     <section id="services">
         <h2>Services</h2>
         <div class="grid">
-            <div class="card"><h3>Website Development</h3><p>Clean, responsive websites built with HTML, CSS, and JavaScript.</p><span class="price">$15–$40</span></div>
-            <div class="card"><h3>WordPress Setup & Fixes</h3><p>Theme customization, plugin configuration, and bug fixes.</p><span class="price">$10–$30</span></div>
-            <div class="card"><h3>Discord Bot Development</h3><p>Custom bots for moderation, music, games, and automation.</p><span class="price">$20–$50</span></div>
-            <div class="card"><h3>Figma to HTML</h3><p>Convert your design into pixel-perfect, responsive code.</p><span class="price">$20–$40</span></div>
-            <div class="card"><h3>Bug Fixing</h3><p>Fix layout, logic, or functionality issues in your code.</p><span class="price">$15–$30</span></div>
-            <div class="card"><h3>Automation Scripts</h3><p>Python or JavaScript scripts to automate repetitive tasks.</p><span class="price">$15–$35</span></div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>Website Development</h3><p>Clean, responsive websites built with HTML, CSS, and JavaScript.</p><span class="price">$15–$40</span></div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>WordPress Setup & Fixes</h3><p>Theme customization, plugin configuration, and bug fixes.</p><span class="price">$10–$30</span></div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>Discord Bot Development</h3><p>Custom bots for moderation, music, games, and automation.</p><span class="price">$20–$50</span></div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>Figma to HTML</h3><p>Convert your design into pixel-perfect, responsive code.</p><span class="price">$20–$40</span></div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>Bug Fixing</h3><p>Fix layout, logic, or functionality issues in your code.</p><span class="price">$15–$30</span></div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><h3>Automation Scripts</h3><p>Python or JavaScript scripts to automate repetitive tasks.</p><span class="price">$15–$35</span></div>
         </div>
     </section>
 
