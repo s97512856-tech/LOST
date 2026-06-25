@@ -82,6 +82,30 @@ def init_db():
                 FOREIGN KEY (product_id) REFERENCES products(id)
             );
         ''')
+        count = db.execute('SELECT COUNT(*) FROM products').fetchone()[0]
+        if count == 0:
+            default_products = [
+                ('Test Product', 'منتج تجريبي', 'A test product to try the payment flow. Price: $0',
+                 'منتج تجريبي لاختبار الدفع', 0, 'Test'),
+                ('Website Development', 'تطوير مواقع', 'Clean responsive websites with HTML, CSS, and JavaScript.',
+                 'مواقع متجاوبة ونظيفة', 40, 'Web'),
+                ('WordPress Setup', 'ووردبريس', 'Theme customization, plugin config, and bug fixes.',
+                 'تعديل ثيمات وإصلاح أخطاء', 30, 'Web'),
+                ('Discord Bot Dev', 'بوتات دسكورد', 'Custom bots for moderation, music, games, and more.',
+                 'بوتات مخصصة', 50, 'Discord'),
+                ('Figma to HTML', 'تصميم إلى كود', 'Convert your designs into pixel-perfect code.',
+                 'تحويل التصميم إلى كود', 40, 'Web'),
+                ('Bug Fixing', 'إصلاح أخطاء', 'Fix layout, logic, or functionality issues.',
+                 'إصلاح مشاكل برمجية', 30, 'Dev'),
+                ('Automation Scripts', 'سكريبتات أتمتة', 'Python/JS scripts to automate repetitive tasks.',
+                 'أتمتة المهام المتكررة', 35, 'Dev'),
+                ('FiveM Development', 'تطوير فايف إم', 'Custom scripts, mods, and full server setup for FiveM.',
+                 'سكريبتات وإعداد سيرفرات فايف إم', 100, 'FiveM'),
+                ('Programmer Hire', 'مبرمج للإيجار', 'Any programming task — I will build it for you.',
+                 'أبرمج لك أي فكرة', 50, 'Dev'),
+            ]
+            for p in default_products:
+                db.execute('INSERT INTO products (name,name_ar,description,desc_ar,price,category) VALUES (?,?,?,?,?,?)', p)
 
 class User(UserMixin):
     def __init__(self, row):
