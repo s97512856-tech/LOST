@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Login — LOST{% endblock %}
+{% block content %}
+<style>
+    .auth{max-width:400px;margin:80px auto;padding:20px;text-align:center}
+    .auth h2{color:#22c55e;margin-bottom:20px}
+    .auth input{width:100%;padding:12px;margin-bottom:12px;background:#111;border:1px solid #333;border-radius:6px;color:#f0f0f0;font-size:.95rem}
+    .auth input:focus{outline:none;border-color:#22c55e}
+    .auth .btn{width:100%;padding:12px;margin-top:5px}
+    .auth p{margin-top:15px;color:#888;font-size:.9rem}
+    .auth a{color:#22c55e}
+</style>
+<div class="auth">
+    <h2>Login / تسجيل الدخول</h2>
+    <form method="POST">
+        <input type="text" name="username" placeholder="Username or Email / اسم المستخدم أو البريد" required>
+        <input type="password" name="password" placeholder="Password / كلمة المرور" required>
+        <button type="submit" class="btn">Login / دخول</button>
+    </form>
+    <p>No account? <a href="{{ url_for('register') }}">Register / سجل</a></p>
+</div>
+{% endblock %}

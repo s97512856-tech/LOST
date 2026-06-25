@@ -1,0 +1,78 @@
+# ذاكرة المشروع الكاملة — LOST
+
+## معلومات المستخدم
+- العمر: 15 سنة
+- الدولة: الإمارات
+- الدسكورد: @root_0351
+- الحساب: s97512856-tech (GitHub)
+- الأهداف النهائية: أصير مهندس برمجة طائرات وسيارات + مليونير + أسعد الوالدة
+- المطلوب دخل من الحين
+
+## 🚀 مشروع المتجر الإلكتروني (25 يونيو 2026)
+- **المسار:** C:\Users\ASUS\Documents\LOST-website\
+- **التقنية:** Python Flask + SQLite + Flask-Login
+- **الاستضافة:** PythonAnywhere (قريباً)
+- **الدومين:** لاحقاً (lost.ae أو lost-dev.com)
+
+### مكونات المشروع
+| الملف | الوظيفة |
+|-------|---------|
+| `app.py` | سيرفر Flask الرئيسي (كل الـ routes والـ API) |
+| `requirements.txt` | المكتبات المطلوبة |
+| `templates/base.html` | القالب الأساسي (شريط التنقل + footer) |
+| `templates/index.html` | الصفحة الرئيسية |
+| `templates/login.html` | تسجيل الدخول |
+| `templates/register.html` | إنشاء حساب |
+| `templates/shop.html` | المتجر (عرض المنتجات) |
+| `templates/product.html` | صفحة المنتج + التقييمات |
+| `templates/cart.html` | سلة المشتريات |
+| `templates/checkout.html` | إتمام الشراء (IBAN / PayPal) |
+| `templates/orders.html` | طلبات المستخدم |
+| `templates/dashboard.html` | لوحة تحكم المستخدم |
+| `templates/admin.html` | لوحة تحكم المدير (الحساب: root) |
+| `static/style.css` | التصميم (أسود + أخضر) |
+| `static/logo.svg` | شعار LOST |
+
+### قاعدة البيانات (SQLite)
+- **users**: id, username, email, password (مشفرة), created_at
+- **products**: id, name (EN+AR), description (EN+AR), price, category, file_url
+- **orders**: id, user_id, total, status, payment_method, created_at
+- **order_items**: id, order_id, product_id, quantity, price
+- **carts**: id, user_id, product_id, quantity
+- **reviews**: id, user_id, product_id, rating (1-5), comment
+
+### النظام كامل:
+- ✅ تسجيل دخول / إنشاء حساب (مع تشفير كلمة المرور)
+- ✅ متجر منتجات (مع تصنيفات)
+- ✅ سلة مشتريات (إضافة/إزالة)
+- ✅ إتمام شراء (IBAN تحويل بنكي + PayPal)
+- ✅ نظام طلبات (كل طلب بحالة: pending, paid, completed, cancelled)
+- ✅ تقييمات ونجوم (1-5) لكل منتج
+- ✅ لوحة تحكم المستخدم (عدد الطلبات + الإجمالي)
+- ✅ لوحة تحكم المدير (إدارة منتجات + طلبات + مستخدمين)
+- ✅ ثنائي اللغة (عربي + إنجليزي)
+- ✅ تصميم dark theme (أسود #0a0a0a + أخضر #22c55e)
+
+### للحسابات المصرفية:
+- PayPal: يحتاج حساب ولي أمرك (18+)
+- IBAN: تحويل بنكي يدوي (يؤكده المدير)
+
+### رفع على PythonAnywhere:
+1. ارفع الملفات (app.py + templates + static + requirements.txt)
+2. سو Web app جديد → Manual Config → Python + Flask
+3. عدل WSGI file عشان يشير لـ app.py
+4. راح يكون موقعك: lostusername.pythonanywhere.com
+
+## بوت دسكورد (الشغال حالياً)
+- **الملف الرئيسي:** C:\Users\ASUS\bot.py
+- **التوكن:** متغير (حاليا expired)
+- **النظام:** اقتصاد + تذاكر + إدارة سيرفر
+- **Discloud:** 100MB RAM (مرفوع هناك)
+- **ملاحظة:** الانتنت Members Intent لازم يشتغل عشان الترحيب التلقائي
+
+## الخطة الجاية
+1. رفع الموقع على PythonAnywhere → تجربة + تصحيح
+2. إضافة المنتجات (الخدمات الـ 8 في قاعدة البيانات)
+3. ربط PayPal (لما يتوفر حساب العائلة)
+4. ربط بوت دسكورد مع الموقع (تذاكر أوتوماتيك للدعم)
+5. تسويق عبر تيك توك + يوتيوب Shorts

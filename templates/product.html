@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} — LOST{% endblock %}
+{% block content %}
+<style>
+    .product{max-width:800px;margin:40px auto;padding:0 20px}
+    .back{color:#666;font-size:.9rem;margin-bottom:20px;display:inline-flex;align-items:center;gap:5px;transition:color .3s}
+    .back:hover{color:#22c55e}
+    .product-card{background:linear-gradient(145deg,#111,#1a1a1a);border:1px solid #222;border-radius:14px;padding:35px;animation:fadeUp .6s ease}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .product-card .cat{color:#555;font-size:.75rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+    .product-card h1{font-size:1.8rem;margin-bottom:4px}
+    .product-card .ar{color:#888;font-size:1rem;margin-bottom:15px}
+    .product-card .desc{color:#aaa;font-size:1rem;line-height:1.8;margin-bottom:20px;padding:15px 0;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a}
+    .product-card .price-big{font-size:2.2rem;font-weight:800;color:#22c55e;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+    .product-card .actions{display:flex;gap:12px;margin-bottom:20px}
+    .reviews{margin-top:35px}
+    .reviews h3{color:#22c55e;margin-bottom:15px;font-size:1.2rem}
+    .review-card{background:#111;border:1px solid #222;border-radius:10px;padding:16px 20px;margin-bottom:10px;transition:all .3s}
+    .review-card:hover{border-color:#333}
+    .review-card .user{color:#22c55e;font-weight:600;font-size:.9rem}
+    .review-card .date{color:#555;font-size:.75rem;float:right}
+    .review-card .stars{color:#f59e0b;font-size:.95rem;margin:5px 0}
+    .review-card .comment{color:#aaa;font-size:.85rem}
+    .review-form{background:linear-gradient(145deg,#111,#1a1a1a);border:1px solid #222;border-radius:10px;padding:22px;margin-top:18px}
+    .review-form h4{color:#22c55e;margin-bottom:12px}
+    .review-form select,.review-form textarea{width:100%;padding:10px 14px;margin-bottom:10px;background:#0a0a0a;border:1px solid #333;border-radius:8px;color:#f0f0f0;font-size:.9rem;transition:border .3s}
+    .review-form textarea{min-height:80px;resize:vertical}
+    .review-form select:focus,.review-form textarea:focus{outline:none;border-color:#22c55e}
+    .support-note{margin-top:20px;padding:14px 20px;background:#111;border:1px solid #222;border-radius:10px;text-align:center;font-size:.85rem;color:#888;transition:all .3s}
+    .support-note:hover{border-color:rgba(34,197,94,0.3)}
+    .support-note i{color:#5865F2}
+    .support-note a{color:#22c55e;font-weight:600}
+    .support-note a:hover{text-decoration:underline}
+</style>
+<div class="product">
+    <a href="{{ url_for('shop') }}" class="back"><i class="fas fa-arrow-left"></i> Back to shop</a>
+    <div class="product-card">
+        <div class="cat">{{ product.category }}</div>
+        <h1>{{ product.name }}</h1>
+        <div class="ar">{{ product.name_ar }}</div>
+        <div class="desc">{{ product.description }}</div>
+        <div class="price-big">{% if product.price == 0 %}<i class="fas fa-gift"></i> FREE{% else %}${{ "%.0f" % product.price }}{% endif %}</div>
+        <div class="actions">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('cart_add', pid=product.id) }}" class="btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn"><i class="fas fa-sign-in-alt"></i> Login to Buy</a>
+            {% endif %}
+        </div>
+
+        <div class="support-note">
+            <i class="fab fa-discord"></i> Facing an issue? <a href="https://discord.gg/ayvvnRaJw7" target="_blank">Contact us on Discord</a> / تواصل معنا على دسكورد
+        </div>
+    </div>
+
+    <div class="reviews">
+        <h3><i class="fas fa-star"></i> Reviews / التقييمات</h3>
+        {% for r in reviews %}
+            <div class="review-card">
+                <div class="user">{{ r.username }} <span class="date">{{ r.created_at[:10] }}</span></div>
+                <div class="stars">{{ '★' * r.rating }}{{ '☆' * (5 - r.rating) }}</div>
+                {% if r.comment %}<div class="comment">{{ r.comment }}</div>{% endif %}
+            </div>
+        {% else %}
+            <p style="color:#666;font-size:.9rem;text-align:center;padding:20px">No reviews yet — Be the first! / لا توجد تقييمات</p>
+        {% endfor %}
+
+        {% if current_user.is_authenticated %}
+            <form method="POST" action="{{ url_for('review_add', pid=product.id) }}" class="review-form">
+                <h4><i class="fas fa-pen"></i> Write a Review</h4>
+                <select name="rating">
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★☆</option>
+                    <option value="3">★★★☆☆</option>
+                    <option value="2">★★☆☆☆</option>
+                    <option value="1">★☆☆☆☆</option>
+                </select>
+                <textarea name="comment" placeholder="Share your experience... / شارك تجربتك..."></textarea>
+                <button type="submit" class="btn btn-sm"><i class="fas fa-paper-plane"></i> Submit</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

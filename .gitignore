@@ -1,0 +1,5 @@
+lost.db
+__pycache__/
+*.pyc
+uploads/
+.env

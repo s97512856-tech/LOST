@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOST — Development</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a0a0a'/><text x='6' y='25' font-family='Segoe UI' font-size='22' font-weight='800' fill='%2322c55e'>L</text></svg>">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a0a0a;color:#f0f0f0;line-height:1.6}
+        nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:rgba(10,10,10,0.9);z-index:100}
+        .logo{font-size:1.5rem;font-weight:700;color:#22c55e;letter-spacing:2px}
+        nav ul{list-style:none;display:flex;gap:30px}
+        nav a{color:#f0f0f0;text-decoration:none;font-size:.95rem;transition:color .3s}
+        nav a:hover{color:#22c55e}
+        section{padding:100px 40px;max-width:900px;margin:0 auto}
+        #hero{padding-top:180px;text-align:center}
+        #hero h1{font-size:4rem;font-weight:800;letter-spacing:4px;margin-bottom:10px}
+        #hero p{color:#888;font-size:1.2rem;margin-bottom:5px}
+        #hero .ar{color:#22c55e;font-size:1rem;margin-bottom:25px}
+        .btn{display:inline-block;padding:12px 30px;background:#22c55e;color:#0a0a0a;text-decoration:none;font-weight:600;border-radius:6px;transition:.3s}
+        .btn:hover{background:#16a34a;transform:translateY(-2px)}
+        h2{font-size:2rem;margin-bottom:40px;color:#22c55e;text-align:center}
+        h2 small{display:block;font-size:.9rem;color:#888;margin-top:4px}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+        .card{background:#111;border:1px solid #222;border-radius:10px;padding:25px;transition:.3s;opacity:0;cursor:pointer}
+        .card:hover{border-color:#22c55e;transform:translateY(-4px)}
+        .card h3{font-size:1.1rem;margin-bottom:5px}
+        .card .ar{color:#888;font-size:.8rem;margin-bottom:10px}
+        .card p{color:#aaa;font-size:.9rem;margin-bottom:5px}
+        .card .p-ar{color:#666;font-size:.8rem;margin-bottom:15px}
+        .price{color:#22c55e;font-weight:700;font-size:1.1rem}
+        #about p{color:#aaa;font-size:1.05rem;text-align:center;max-width:600px;margin:0 auto 10px}
+        #about .ar{color:#666;font-size:.9rem;text-align:center;max-width:600px;margin:0 auto}
+        #contact{text-align:center}
+        #contact p{color:#888;margin-bottom:5px}
+        #contact .ar{color:#666;font-size:.9rem;margin-bottom:20px}
+        .discord{display:inline-block;padding:12px 30px;border:1px solid #22c55e;border-radius:6px;color:#22c55e;font-weight:600;font-size:1.1rem}
+        .discord-btn{display:inline-flex;align-items:center;padding:12px 30px;border:1px solid #22c55e;border-radius:6px;color:#22c55e;font-weight:600;font-size:1.1rem;text-decoration:none;margin-top:15px;transition:.3s}
+        .discord-btn:hover{background:#22c55e;color:#0a0a0a;transform:translateY(-2px)}
+        .discord-btn:hover svg{fill:#0a0a0a!important}
+        footer{text-align:center;padding:30px;color:#444;font-size:.85rem}
+        footer .ar{color:#333;font-size:.8rem}
+        @media (max-width:600px){nav{padding:15px 20px;flex-direction:column;gap:10px}#hero h1{font-size:2.5rem}section{padding:80px 20px}}
+    </style>
+</head>
+<body>
+    <nav>
+        <img src="logo.svg" alt="LOST" style="height:28px">
+        <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <h1>LOST</h1>
+        <p>Web development & automation solutions</p>
+        <div class="ar">حلول برمجية وتطوير مواقع وبوتات</div>
+        <a href="#services" class="btn">View Services</a>
+    </section>
+
+    <section id="services">
+        <h2>Services <small>الخدمات</small></h2>
+        <div class="grid">
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>Website Development</h3>
+                <div class="ar">تطوير مواقع</div>
+                <p>Clean, responsive websites built with HTML, CSS, and JavaScript.</p>
+                <div class="p-ar">مواقع متجاوبة ونظيفة</div>
+                <span class="price">$15–$40</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>WordPress Setup & Fixes</h3>
+                <div class="ar">ووردبريس</div>
+                <p>Theme customization, plugin configuration, and bug fixes.</p>
+                <div class="p-ar">تعديل ثيمات وإصلاح أخطاء</div>
+                <span class="price">$10–$30</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>Discord Bot Development</h3>
+                <div class="ar">بوتات دسكورد</div>
+                <p>Custom bots for moderation, music, games, and automation.</p>
+                <div class="p-ar">بوتات إدارة، موسيقى، وألعاب</div>
+                <span class="price">$20–$50</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>Figma to HTML</h3>
+                <div class="ar">تصميم إلى كود</div>
+                <p>Convert your design into pixel-perfect, responsive code.</p>
+                <div class="p-ar">تحويل التصميم إلى كود</div>
+                <span class="price">$20–$40</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>Bug Fixing</h3>
+                <div class="ar">إصلاح أخطاء</div>
+                <p>Fix layout, logic, or functionality issues in your code.</p>
+                <div class="p-ar">إصلاح مشاكل المواقع</div>
+                <span class="price">$15–$30</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>Automation Scripts</h3>
+                <div class="ar">سكريبتات أتمتة</div>
+                <p>Python or JavaScript scripts to automate repetitive tasks.</p>
+                <div class="p-ar">أتمتة المهام المتكررة</div>
+                <span class="price">$15–$35</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3><svg viewBox="0 0 24 24" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;fill:#f57c00"><path d="M22.4 24h-5.225c-.117 0-.455-1.127-1.026-3.375-1.982-6.909-3.124-10.946-3.417-12.12l3.37-3.325h.099c.454 1.42 2.554 7.676 6.299 18.768ZM12.342 7.084h-.048a3.382 3.385 0 0 1-.098-.492v-.098a102.619 102.715 0 0 1 3.272-3.275c.13.196.196.356.196.491v.05a140.694 140.826 0 0 1-3.322 3.324ZM5.994 10.9h-.05c.67-2.12 1.076-3.209 1.223-3.275L14.492.343c.08 0 .258.524.533 1.562zm1.37-4.014h-.05C8.813 2.342 9.612.048 9.71 0h4.495v.05a664.971 664.971 0 0 1-6.841 6.839Zm-2.69 7.874h-.05c.166-.798.554-1.418 1.174-1.855a312.918 313.213 0 0 1 5.71-5.717h.05c-.117.672-.375 1.175-.781 1.52zM1.598 24l-.098-.05c1.399-4.172 2.148-6.322 2.248-6.45l6.74-6.694v.05C10.232 11.88 8.974 16.263 6.73 24Z"/></svg> FiveM Server Development</h3>
+                <div class="ar">تطوير سيرفرات فايف إم</div>
+                <p>Custom scripts, mods, and server setup for FiveM.</p>
+                <div class="p-ar">سكريبتات وتعديلات وإعداد سيرفرات</div>
+                <span class="price">$25–$100</span>
+            </div>
+            <div class="card" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <h3>Programmer for Hire</h3>
+                <div class="ar">مطور برمجيات للإيجار</div>
+                <p>Custom programming tasks — tell me what you need built.</p>
+                <div class="p-ar">أبرمج لك أي فكرة — تواصل واطلب</div>
+                <span class="price">$15–$50</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About <small>عنّي</small></h2>
+        <p>A developer focused on building clean, functional web solutions. I work with HTML, CSS, JavaScript, and Python to create websites, bots, and automation tools. Every project is built with attention to detail and performance.</p>
+        <div class="ar">مطور متخصص في تصميم مواقع وبوتات وحلول برمجية. كل مشروع ينبنى بعناية وأداء عالي.</div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact <small>تواصل</small></h2>
+        <p>Available on Discord for fast communication.</p>
+        <div class="ar">متوفر على دسكورد للتواصل السريع</div>
+        <p>Payments via PayPal / IBAN Transfer</p>
+        <div class="ar">الدفع عبر باي بال أو تحويل بنكي (IBAN)</div>
+        <div class="discord">@root_0351</div>
+        <a href="https://discord.gg/ayvvnRaJw7" target="_blank" class="discord-btn">
+            <svg viewBox="0 0 127.14 96.36" style="width:24px;height:24px;vertical-align:middle;fill:#22c55e;margin-right:8px"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+            Join Server / ادخل السيرفر
+        </a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 LOST. All rights reserved.</p>
+        <div class="ar">جميع الحقوق محفوظة</div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const el=document.querySelector(a.getAttribute('href'));if(el)el.scrollIntoView({behavior:'smooth'})})});
+        const observer=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting)e.target.style.opacity='1'})},{threshold:.1});
+        document.querySelectorAll('.card').forEach(c=>{c.style.transition='opacity .6s, transform .3s';observer.observe(c)});
+    </script>
+</body>
+</html>

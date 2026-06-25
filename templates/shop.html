@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Shop — LOST{% endblock %}
+{% block content %}
+<style>
+    .shop{padding:40px 20px;max-width:1050px;margin:0 auto}
+    .shop .top{text-align:center;margin-bottom:35px}
+    .shop .top h2{font-size:2rem;font-weight:700;color:#22c55e}
+    .shop .top p{color:#666;font-size:.9rem;margin-top:4px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:30px}
+    .filters a{padding:7px 18px;border:1px solid #333;border-radius:25px;color:#888;text-decoration:none;font-size:.85rem;transition:all .3s ease}
+    .filters a:hover,.filters a.active{border-color:#22c55e;color:#22c55e;background:rgba(34,197,94,0.05)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+    .card{background:linear-gradient(135deg,#111,#1a1a1a);border:1px solid #222;border-radius:12px;padding:25px;transition:all .35s ease;opacity:0;transform:translateY(25px)}
+    .card.show{opacity:1;transform:translateY(0)}
+    .card:hover{border-color:#22c55e;transform:translateY(-5px);box-shadow:0 12px 35px rgba(34,197,94,0.08)}
+    .card .cat{color:#555;font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+    .card h3{font-size:1.1rem;margin-bottom:3px}
+    .card .ar{color:#888;font-size:.8rem;margin-bottom:8px}
+    .card .desc{color:#999;font-size:.85rem;margin-bottom:14px;line-height:1.5}
+    .card .row{display:flex;justify-content:space-between;align-items:center}
+    .card .price{color:#22c55e;font-weight:700;font-size:1.1rem}
+    .card .view{color:#22c55e;font-size:.8rem;opacity:0;transition:opacity .3s}
+    .card:hover .view{opacity:1}
+    .empty{text-align:center;margin-top:80px;color:#666}
+</style>
+<div class="shop">
+    <div class="top">
+        <h2>Shop</h2>
+        <p>المتجر — digital products & services</p>
+    </div>
+    <div class="filters fade-in">
+        <a href="{{ url_for('shop') }}" class="{% if not request.args.get('category') %}active{% endif %}">All</a>
+        {% for cat in categories %}
+            <a href="{{ url_for('shop', category=cat) }}" class="{% if request.args.get('category') == cat %}active{% endif %}">{{ cat }}</a>
+        {% endfor %}
+    </div>
+    {% if products %}
+        <div class="grid" id="productGrid">
+            {% for p in products %}
+                <a href="{{ url_for('product', pid=p.id) }}" style="text-decoration:none;color:inherit">
+                    <div class="card">
+                        <div class="cat">{{ p.category }}</div>
+                        <h3>{{ p.name }}</h3>
+                        <div class="ar">{{ p.name_ar }}</div>
+                        <div class="desc">{{ p.description[:100] }}{% if p.description|length > 100 %}...{% endif %}</div>
+                        <div class="row">
+                            <span class="price">{% if p.price == 0 %}Free{% else %}${{ "%.0f" % p.price }}{% endif %}</span>
+                            <span class="view">View →</span>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <script>
+            const observer=new IntersectionObserver(e=>{e.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('show');observer.unobserve(entry.target)}})},{threshold:.1});
+            document.querySelectorAll('.card').forEach(el=>observer.observe(el));
+        </script>
+    {% else %}
+        <div class="empty">
+            <p style="font-size:1.2rem;margin-bottom:8px">Coming soon</p>
+            <p style="font-size:.9rem">Products will appear here / المنتجات راح تظهر هنا</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+{% block title %}LOST{% endblock %}
+{% block content %}
+<style>
+    .hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-60%;left:-60%;width:220%;height:220%;background:radial-gradient(circle at 50% 50%,rgba(34,197,94,0.04) 0%,transparent 50%);animation:pulse 6s ease-in-out infinite}
+    .hero::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(34,197,94,0.3),transparent)}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+    .hero h1{font-size:5.5rem;font-weight:900;letter-spacing:8px;background:linear-gradient(135deg,#22c55e,#4ade80,#22c55e);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;position:relative;animation:gradientShift 4s ease-in-out infinite}
+    @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+    @media (max-width:600px){.hero h1{font-size:3rem}}
+    .hero .sub{color:#888;font-size:1.3rem;margin-bottom:6px;position:relative;animation:fadeUp 1s ease .3s both}
+    .hero .ar{color:#22c55e;font-size:1rem;margin-bottom:32px;position:relative;animation:fadeUp 1s ease .5s both}
+    .hero .btns{display:flex;gap:15px;flex-wrap:wrap;justify-content:center;position:relative}
+    .hero .btns a{animation:fadeUp 1s ease .7s both}
+    .hero .btns a:nth-child(1):hover{transform:translateY(-4px) scale(1.03)}
+    .hero .btns a:nth-child(2):hover{transform:translateY(-4px) scale(1.03)}
+    .hero .scroll-indicator{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:#444;font-size:.8rem;animation:bounce 2s infinite;display:flex;flex-direction:column;align-items:center;gap:5px}
+    @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+
+    .section{padding:80px 20px;max-width:1050px;margin:0 auto}
+    .section-title{text-align:center;font-size:2.2rem;font-weight:700;margin-bottom:6px;background:linear-gradient(135deg,#22c55e,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .section-sub{text-align:center;color:#666;font-size:.95rem;margin-bottom:45px}
+
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:55px}
+    .feature-card{background:linear-gradient(145deg,#111,#1a1a1a);border:1px solid #222;border-radius:14px;padding:30px 20px;text-align:center;transition:all .5s cubic-bezier(.4,0,.2,1);opacity:0;transform:translateY(40px)}
+    .feature-card.show{opacity:1;transform:translateY(0)}
+    .feature-card:hover{border-color:#22c55e;transform:translateY(-8px) scale(1.02);box-shadow:0 20px 50px rgba(34,197,94,0.12)}
+    .feature-card .num{font-size:2.5rem;font-weight:900;color:#22c55e;margin-bottom:8px;text-shadow:0 0 30px rgba(34,197,94,0.3)}
+    .feature-card p{color:#aaa;font-size:.9rem;line-height:1.5}
+    .feature-card p span{display:block;color:#666;font-size:.8rem;margin-top:3px}
+
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .service-card{background:linear-gradient(145deg,#111,#1a1a1a);border:1px solid #222;border-radius:14px;padding:30px;transition:all .5s cubic-bezier(.4,0,.2,1);opacity:0;transform:translateY(40px);cursor:default;position:relative;overflow:hidden}
+    .service-card::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(34,197,94,0.03),transparent);transition:left .6s ease}
+    .service-card:hover::before{left:100%}
+    .service-card.show{opacity:1;transform:translateY(0)}
+    .service-card:hover{border-color:#22c55e;transform:translateY(-6px);box-shadow:0 15px 40px rgba(34,197,94,0.1)}
+    .service-card .icon{font-size:2rem;margin-bottom:12px;display:block;transition:transform .4s ease}
+    .service-card:hover .icon{transform:scale(1.2) rotate(-5deg)}
+    .service-card h3{font-size:1.1rem;margin-bottom:3px}
+    .service-card .ar{color:#888;font-size:.8rem;margin-bottom:8px}
+    .service-card p{color:#999;font-size:.85rem;margin-bottom:14px;line-height:1.6}
+    .service-card .price{color:#22c55e;font-weight:700;font-size:1.1rem;display:inline-block;padding:4px 14px;background:rgba(34,197,94,0.08);border-radius:20px}
+
+    .about-card{max-width:620px;margin:0 auto;background:linear-gradient(145deg,#111,#1a1a1a);border:1px solid #222;border-radius:14px;padding:40px;text-align:center;opacity:0;transform:translateY(40px)}
+    .about-card.show{opacity:1;transform:translateY(0)}
+    .about-card:hover{border-color:#22c55e;box-shadow:0 15px 40px rgba(34,197,94,0.08)}
+    .about-card .avatar{width:70px;height:70px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;font-size:2rem;font-weight:900;color:#0a0a0a;box-shadow:0 0 30px rgba(34,197,94,0.2)}
+    .about-card p{color:#aaa;font-size:1.05rem;line-height:1.7;margin-bottom:12px}
+    .about-card .ar{color:#666;font-size:.9rem;line-height:1.6}
+    .about-card .tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+    .about-card .tags span{padding:5px 16px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:25px;color:#22c55e;font-size:.8rem;transition:all .3s}
+    .about-card .tags span:hover{background:rgba(34,197,94,0.15);transform:translateY(-2px)}
+
+    .contact-section{max-width:520px;margin:0 auto;text-align:center}
+    .contact-card{background:linear-gradient(145deg,#111,#1a1a1a);border:1px solid #222;border-radius:14px;padding:35px;opacity:0;transform:translateY(40px)}
+    .contact-card.show{opacity:1;transform:translateY(0)}
+    .contact-card:hover{border-color:#22c55e}
+    .contact-card .social-links{display:flex;flex-direction:column;gap:10px;margin-top:5px}
+    .contact-card .social-links a{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 20px;border-radius:10px;border:1px solid #222;transition:all .35s ease;color:#f0f0f0;font-weight:500}
+    .contact-card .social-links a:hover{border-color:#22c55e;transform:translateX(8px);background:rgba(34,197,94,0.04)}
+    .contact-card .social-links a i{font-size:1.3rem;width:24px;text-align:center}
+    .contact-card .social-links a .fab.fa-discord{color:#5865F2}
+    .contact-card .social-links a .fab.fa-tiktok{color:#fff}
+    .contact-card .social-links a .fab.fa-snapchat{color:#FFFC00}
+    .contact-card .divider{height:1px;background:linear-gradient(90deg,transparent,#333,transparent);margin:20px 0}
+    .contact-card .pay-title{color:#888;font-size:.85rem;margin-bottom:12px}
+    .contact-card .payment-badges{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+    .contact-card .payment-badges span{display:flex;align-items:center;gap:6px;padding:8px 18px;background:#0a0a0a;border:1px solid #333;border-radius:8px;color:#888;font-size:.82rem;font-weight:500;transition:all .3s}
+    .contact-card .payment-badges span:hover{border-color:#22c55e;color:#22c55e;transform:translateY(-2px)}
+    .contact-card .payment-badges span i{font-size:1rem}
+</style>
+
+<div class="hero">
+    <h1>LOST</h1>
+    <p class="sub"><i class="fas fa-code"></i> Web development & automation solutions</p>
+    <div class="ar">حلول برمجية وتطوير مواقع وبوتات وأتمتة</div>
+    <div class="btns">
+        <a href="{{ url_for('shop') }}" class="btn"><i class="fas fa-store"></i> Browse Shop</a>
+        <a href="#about" class="btn btn-outline"><i class="fas fa-user"></i> About Me</a>
+    </div>
+    <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">أربع خطوات بسيطة — اشتري منتجك الرقمي فوراً</p>
+    <div class="features">
+        <div class="feature-card"><div class="num">01</div><p>Browse Products<br><span>تصفح المنتجات</span></p></div>
+        <div class="feature-card"><div class="num">02</div><p>Add to Cart<br><span>أضف للسلة</span></p></div>
+        <div class="feature-card"><div class="num">03</div><p>Checkout & Pay<br><span>ادفع بأمان</span></p></div>
+        <div class="feature-card"><div class="num">04</div><p>Get Your Product<br><span>استلم فوراً</span></p></div>
+    </div>
+
+    <h2 class="section-title">Services</h2>
+    <p class="section-sub">خدماتي الاحترافية — اختر ما يناسبك</p>
+    <div class="services">
+        <div class="service-card"><span class="icon">🌐</span><h3>Website Development</h3><div class="ar">تطوير مواقع</div><p>مواقع متجاوبة ونظيفة باستخدام HTML, CSS, JavaScript. مناسب للشركات والمتاجر والمواقع الشخصية.</p><span class="price">$15–$40</span></div>
+        <div class="service-card"><span class="icon">🔧</span><h3>WordPress Setup</h3><div class="ar">ووردبريس</div><p>تعديل ثيمات، إضافة إضافات، وإصلاح مشاكل. أحوّل تصميمك إلى موقع ووردبريس كامل.</p><span class="price">$10–$30</span></div>
+        <div class="service-card"><span class="icon">🤖</span><h3>Discord Bot Dev</h3><div class="ar">بوتات دسكورد</div><p>بوتات مخصصة: إدارة، موسيقى، ألعاب، اقتصاد، تذاكر — أي فكرة تبغاها أسويها.</p><span class="price">$20–$50</span></div>
+        <div class="service-card"><span class="icon">🎨</span><h3>Figma to HTML</h3><div class="ar">تصميم إلى كود</div><p>أحوّل تصميمك من Figma إلى كود HTML/CSS نظيف ومتجاوب 100%.</p><span class="price">$20–$40</span></div>
+        <div class="service-card"><span class="icon">🐛</span><h3>Bug Fixing</h3><div class="ar">إصلاح أخطاء</div><p>إصلاح مشاكل البرمجة، الأعطال، والأخطاء في موقعك أو تطبيقك بسرعة.</p><span class="price">$15–$30</span></div>
+        <div class="service-card"><span class="icon">⚡</span><h3>Automation Scripts</h3><div class="ar">سكريبتات أتمتة</div><p>سكريبتات Python أو JavaScript لأتمتة المهام المتكررة — توفير وقت وجهد.</p><span class="price">$15–$35</span></div>
+        <div class="service-card"><span class="icon"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:#f57c00;vertical-align:middle"><path d="M22.4 24h-5.225c-.117 0-.455-1.127-1.026-3.375-1.982-6.909-3.124-10.946-3.417-12.12l3.37-3.325h.099c.454 1.42 2.554 7.676 6.299 18.768ZM12.342 7.084h-.048a3.382 3.385 0 0 1-.098-.492v-.098a102.619 102.715 0 0 1 3.272-3.275c.13.196.196.356.196.491v.05a140.694 140.826 0 0 1-3.322 3.324ZM5.994 10.9h-.05c.67-2.12 1.076-3.209 1.223-3.275L14.492.343c.08 0 .258.524.533 1.562zm1.37-4.014h-.05C8.813 2.342 9.612.048 9.71 0h4.495v.05a664.971 664.971 0 0 1-6.841 6.839Zm-2.69 7.874h-.05c.166-.798.554-1.418 1.174-1.855a312.918 313.213 0 0 1 5.71-5.717h.05c-.117.672-.375 1.175-.781 1.52zM1.598 24l-.098-.05c1.399-4.172 2.148-6.322 2.248-6.45l6.74-6.694v.05C10.232 11.88 8.974 16.263 6.73 24Z"/></svg></span><h3>FiveM Development</h3><div class="ar">تطوير فايف إم</div><p>سكريبتات مخصصة لسيرفرات FiveM: أنظمة وظائف، مخدرات، شرطة، عصابات، سيارات، وأكثر.</p><span class="price">$25–$100</span></div>
+        <div class="service-card"><span class="icon">💻</span><h3>Programmer Hire</h3><div class="ar">مبرمج للإيجار</div><p>عندك فكرة؟ خبرني وأبرمجها لك. أي مشروع برمجي — أحوّله لواقع.</p><span class="price">$15–$50</span></div>
+    </div>
+</div>
+
+<div class="section" id="about">
+    <h2 class="section-title">About</h2>
+    <p class="section-sub">من أنا؟</p>
+    <div class="about-card">
+        <div class="avatar">L</div>
+        <p>مطور متخصص في بناء حلول برمجية متكاملة — من المواقع إلى البوتات إلى أنظمة الأتمتة. أشتغل بـ HTML/CSS/JavaScript و Python، وهدفِي دايماً أقدّم شغل نظيف، سريع، واحترافي.</p>
+        <div class="ar">A developer focused on building clean, functional digital solutions — from websites to bots to automation.</div>
+        <div class="tags">
+            <span>HTML/CSS</span><span>JavaScript</span><span>Python</span><span>Flask</span><span>Discord.py</span><span>FiveM</span><span>SQL</span>
+        </div>
+    </div>
+</div>
+
+<div class="section" id="reviews">
+    <h2 class="section-title">Testimonials</h2>
+    <p class="section-sub">وش قالوا عني؟</p>
+    {% if reviews %}
+    <div class="reviews-carousel">
+        <div class="review-track" id="reviewTrack">
+            {% for r in reviews %}
+            <div class="review-slide">
+                <div class="review-stars">{{ '★' * r.rating }}{{ '☆' * (5 - r.rating) }}</div>
+                <div class="review-text">"{{ r.comment }}"</div>
+                <div class="review-author">{{ r.username }} <span>on {{ r.name }}</span></div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="review-dots" id="reviewDots"></div>
+    </div>
+    {% else %}
+    <p style="text-align:center;color:#666;font-size:.9rem">No reviews yet / لا توجد تقييمات بعد</p>
+    {% endif %}
+</div>
+
+<style>
+    .reviews-carousel{max-width:600px;margin:0 auto;position:relative;overflow:hidden;border-radius:14px;background:linear-gradient(145deg,#111,#1a1a1a);border:1px solid #222;padding:35px 30px;min-height:180px}
+    .review-track{display:flex;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+    .review-slide{min-width:100%;text-align:center;padding:10px 0}
+    .review-stars{color:#f59e0b;font-size:1.3rem;margin-bottom:12px;letter-spacing:4px}
+    .review-text{color:#ccc;font-size:1.05rem;line-height:1.6;margin-bottom:15px;font-style:italic}
+    .review-author{color:#22c55e;font-weight:600;font-size:.9rem}
+    .review-author span{color:#666;font-weight:400;font-size:.8rem}
+    .review-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+    .review-dots span{width:8px;height:8px;border-radius:50%;background:#333;cursor:pointer;transition:all .3s}
+    .review-dots span.active{background:#22c55e;width:24px;border-radius:4px}
+    .review-dots span:hover{background:#22c55e}
+</style>
+
+<script>
+(function(){
+    const track = document.getElementById('reviewTrack');
+    if (!track) return;
+    const slides = track.children;
+    const dots = [];
+    const dotContainer = document.getElementById('reviewDots');
+    let current = 0;
+    for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement('span');
+        dot.addEventListener('click', () => goTo(i));
+        dotContainer.appendChild(dot);
+        dots.push(dot);
+    }
+    function goTo(n) {
+        current = n;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+    dots[0] && dots[0].classList.add('active');
+    setInterval(() => { goTo((current + 1) % slides.length) }, 4000);
+})();
+</script>
+
+<div class="section" id="contact">
+    <h2 class="section-title">Contact</h2>
+    <p class="section-sub">تواصل معي — أنا هنا عشان أساعدك</p>
+    <div class="contact-section">
+        <div class="contact-card">
+            <div class="social-links">
+                <a href="https://discord.gg/ayvvnRaJw7" target="_blank"><i class="fab fa-discord"></i> Discord — @root_0351</a>
+                <a href="https://www.tiktok.com/@i.am.lost522" target="_blank"><i class="fab fa-tiktok"></i> TikTok — @i.am.lost522</a>
+                <a href="https://www.snapchat.com/@mbz3456" target="_blank"><i class="fab fa-snapchat"></i> Snapchat — @mbz3456</a>
+            </div>
+            <div class="divider"></div>
+            <div class="pay-title"><i class="fas fa-lock"></i> طرق الدفع الآمنة / Secure Payments</div>
+            <div class="payment-badges">
+                <span><i class="fab fa-apple"></i> Apple Pay</span>
+                <span><i class="fab fa-paypal"></i> PayPal</span>
+                <span><i class="fas fa-university"></i> IBAN Transfer</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const observer=new IntersectionObserver(e=>{e.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('show');observer.unobserve(entry.target)}})},{threshold:.12});
+    document.querySelectorAll('.feature-card, .service-card, .about-card, .contact-card').forEach(el=>observer.observe(el));
+</script>
+{% endblock %}

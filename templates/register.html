@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Register — LOST{% endblock %}
+{% block content %}
+<style>
+    .auth{max-width:400px;margin:80px auto;padding:20px;text-align:center}
+    .auth h2{color:#22c55e;margin-bottom:20px}
+    .auth input{width:100%;padding:12px;margin-bottom:12px;background:#111;border:1px solid #333;border-radius:6px;color:#f0f0f0;font-size:.95rem}
+    .auth input:focus{outline:none;border-color:#22c55e}
+    .auth .btn{width:100%;padding:12px;margin-top:5px}
+    .auth p{margin-top:15px;color:#888;font-size:.9rem}
+    .auth a{color:#22c55e}
+</style>
+<div class="auth">
+    <h2>Register / إنشاء حساب</h2>
+    <form method="POST">
+        <input type="text" name="username" placeholder="Username / اسم المستخدم" required>
+        <input type="email" name="email" placeholder="Email / البريد الإلكتروني" required>
+        <input type="password" name="password" placeholder="Password / كلمة المرور (6+ characters)" required>
+        <input type="password" name="confirm" placeholder="Confirm password / تأكيد كلمة المرور" required>
+        <button type="submit" class="btn">Register / تسجيل</button>
+    </form>
+    <p>Have an account? <a href="{{ url_for('login') }}">Login / دخول</a></p>
+</div>
+{% endblock %}
