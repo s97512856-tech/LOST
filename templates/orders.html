@@ -40,7 +40,17 @@
                     <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
                         {% set pids = o.product_ids.split(',') %}
                         {% for pid in pids %}
-                            <a href="{{ url_for('download_product', order_id=o.id, product_id=pid) }}" class="dl-btn"><i class="fas fa-download"></i> Download Product {{ pid }}</a>
+                            {% if pid|trim == '9' %}
+                                <div style="width:100%;margin-bottom:6px;padding:8px 12px;background:rgba(88,101,242,0.08);border:1px solid rgba(88,101,242,0.2);border-radius:8px;font-size:.8rem">
+                                    <i class="fab fa-discord" style="color:#5865F2"></i>
+                                    تواصل معي على دسكورد عشان نبدأ الشغل
+                                    <br><span style="color:#888">Contact me on Discord to start working</span>
+                                </div>
+                                <a href="https://discord.gg/ayvvnRaJw7" target="_blank" class="dl-btn" style="background:rgba(88,101,242,0.1);border-color:rgba(88,101,242,0.3);color:#5865F2"><i class="fab fa-discord"></i> Contact @root_0351</a>
+                                <a href="{{ url_for('cart_add', pid=9) }}" class="dl-btn" style="background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.3);color:#22c55e"><i class="fas fa-sync-alt"></i> Renew Week / تجديد الأسبوع</a>
+                            {% else %}
+                                <a href="{{ url_for('download_product', order_id=o.id, product_id=pid) }}" class="dl-btn"><i class="fas fa-download"></i> Download Product {{ pid }}</a>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 {% endif %}
