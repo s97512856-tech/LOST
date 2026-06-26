@@ -51,7 +51,7 @@
                         <div class="ar">{{ p.name_ar }}</div>
                         <div class="desc">{{ p.description[:100] }}{% if p.description|length > 100 %}...{% endif %}</div>
                         <div class="row">
-                            <span class="price">{% if p.price == 0 %}Free{% else %}${{ "%.0f" % p.price }}{% endif %}</span>
+                            <span class="price">{% if p.price == 0 %}Free{% elif 'FiveM' in p.category or 'FiveM' in p.name %}Custom{% else %}${{ "%.0f" % p.price }}{% endif %}</span>
                             <span class="view">View →</span>
                         </div>
                         </div>
