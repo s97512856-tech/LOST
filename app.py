@@ -133,6 +133,10 @@ def admin_required(f):
 def inject_now():
     return {'now': datetime.now()}
 
+@app.route('/uploads/<path:filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
 @app.route('/')
 def index():
     with get_db() as db:
