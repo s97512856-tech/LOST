@@ -108,5 +108,35 @@
         </div>
         <p>&copy; 2026 LOST. All rights reserved. | <span style="color:#555">lost.com</span></p>
     </footer>
+    <canvas id="matrixCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999"></canvas>
+    <script>
+        const mc=document.getElementById('matrixCanvas'),mctx=mc.getContext('2d');
+        let mx=0,my=0,mw=window.innerWidth,mh=window.innerHeight;
+        mc.width=mw;mc.height=mh;
+        const chars='アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789LOST';
+        const cols=Math.floor(mw/20),drops=Array(cols).fill(1);
+        window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+        window.addEventListener('resize',()=>{mw=window.innerWidth;mh=window.innerHeight;mc.width=mw;mc.height=mh});
+        function drawMatrix(){
+            mctx.fillStyle='rgba(10,10,10,0.05)';mctx.fillRect(0,0,mw,mh);
+            const fadeDist=200;
+            for(let i=0;i<drops.length;i++){
+                const x=i*20+10;
+                for(let j=0;j<6;j++){
+                    const y=drops[i]*20-j*20;
+                    if(y<0)continue;
+                    const dist=Math.hypot(x-mx,y-my);
+                    const alpha=dist<fadeDist?Math.max(0.1,1-dist/fadeDist):0.08;
+                    mctx.fillStyle=`rgba(34,197,94,${alpha})`;
+                    mctx.font='15px monospace';
+                    mctx.fillText(chars[Math.floor(Math.random()*chars.length)],x,y);
+                }
+                drops[i]=(drops[i]+0.5);
+                if(drops[i]*20>mh+100&&Math.random()>0.95)drops[i]=0;
+            }
+            requestAnimationFrame(drawMatrix);
+        }
+        drawMatrix();
+    </script>
 </body>
 </html>
