@@ -128,37 +128,107 @@
     </script>
 
     {% elif product.id == 9 %}
-    <div class="product-card" style="border-color:#22c55e;background:linear-gradient(145deg,#0d1f0d,#1a2a1a)">
-        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px">
-            <span style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);padding:4px 14px;border-radius:20px;font-size:.7rem;color:#22c55e;font-weight:600;letter-spacing:1px">SUBSCRIPTION</span>
-            <span style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);padding:4px 14px;border-radius:20px;font-size:.7rem;color:#22c55e;font-weight:600;letter-spacing:1px">WEEKLY</span>
+    <style>
+        @keyframes subFadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes subGlow{0%,100%{box-shadow:0 0 20px rgba(34,197,94,0.15)}50%{box-shadow:0 0 40px rgba(34,197,94,0.35)}}
+        @keyframes subPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+        @keyframes subShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+        @keyframes subBorder{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        @keyframes subFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+        @keyframes subSlideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+        @keyframes subScaleIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+        @keyframes subCountUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        .sub-card{position:relative;overflow:hidden}
+        .sub-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 40%,rgba(34,197,94,0.05),transparent 50%);pointer-events:none}
+        .sub-glow{position:absolute;top:0;left:0;right:0;bottom:0;border-radius:14px;animation:subGlow 3s ease-in-out infinite;pointer-events:none;z-index:0}
+        .sub-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 18px;border-radius:20px;font-size:.7rem;font-weight:700;letter-spacing:1px;position:relative;overflow:hidden}
+        .sub-badge.green{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:#22c55e}
+        .sub-badge.gold{background:rgba(234,179,8,0.15);border:1px solid rgba(234,179,8,0.3);color:#eab308}
+        .sub-badge::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);animation:subShimmer 3s ease-in-out infinite}
+        .sub-price{font-size:2.8rem;font-weight:800;background:linear-gradient(135deg,#22c55e,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:subScaleIn .6s ease .3s both}
+        .sub-price-label{font-size:1rem;color:#888;font-weight:400;-webkit-text-fill-color:#888;animation:subCountUp .5s ease .5s both}
+        .sub-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+        .sub-feature{background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.1);border-radius:10px;padding:14px 16px;transition:all .3s;animation:subSlideIn .5s ease both}
+        .sub-feature:hover{border-color:rgba(34,197,94,0.3);transform:translateY(-2px);background:rgba(34,197,94,0.08)}
+        .sub-feature .sf-icon{font-size:1.5rem;margin-bottom:4px}
+        .sub-feature .sf-title{color:#f0f0f0;font-weight:600;font-size:.85rem}
+        .sub-feature .sf-desc{color:#666;font-size:.75rem;margin-top:2px}
+        .sub-cta{position:relative;overflow:hidden;border-radius:12px;transition:all .3s}
+        .sub-cta::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border-radius:14px;background:linear-gradient(45deg,#22c55e,#16a34a,#22c55e,#4ade80);background-size:300% 300%;animation:subBorder 3s linear infinite;z-index:-1;opacity:.6}
+        .sub-cta:hover::before{opacity:1}
+        .sub-cta:hover{transform:translateY(-3px)}
+        .sub-trust{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+        .sub-trust-item{display:flex;align-items:center;gap:6px;color:#888;font-size:.75rem;animation:subFloat 3s ease-in-out infinite}
+        .sub-trust-item:nth-child(2){animation-delay:.5s}
+        .sub-trust-item:nth-child(3){animation-delay:1s}
+        .sub-trust-item i{color:#22c55e;font-size:.9rem}
+        .sub-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(34,197,94,0.2),transparent);margin:18px 0}
+        .sub-counter{display:flex;justify-content:center;gap:30px;margin:15px 0;padding:15px;background:rgba(34,197,94,0.03);border-radius:10px}
+        .sub-counter-item{text-align:center}
+        .sub-counter-num{font-size:1.5rem;font-weight:800;color:#22c55e}
+        .sub-counter-label{color:#666;font-size:.7rem;margin-top:2px}
+        .sub-feature:nth-child(1){animation-delay:.1s}
+        .sub-feature:nth-child(2){animation-delay:.2s}
+        .sub-feature:nth-child(3){animation-delay:.3s}
+        .sub-feature:nth-child(4){animation-delay:.4s}
+        .sub-feature:nth-child(5){animation-delay:.5s}
+        .sub-feature:nth-child(6){animation-delay:.6s}
+    </style>
+    <div class="product-card sub-card" style="border-color:rgba(34,197,94,0.3);background:linear-gradient(145deg,#0d1f0d,#1a2a1a);position:relative">
+        <div class="sub-glow"></div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;animation:subFadeUp .5s ease">
+            <span class="sub-badge green">✦ SUBSCRIPTION</span>
+            <span class="sub-badge gold">⏱ WEEKLY</span>
+            <span class="sub-badge green" style="animation-delay:.2s">⭐ BESTSELLER</span>
         </div>
-        <div class="cat">{{ product.category }}</div>
-        <h1>{{ product.name }}</h1>
-        <div class="ar">{{ product.name_ar }}</div>
-        <div class="desc">I will work on your project for one week. Contact me on Discord to discuss the details.<br><span style="color:#888">باشتغل على مشروعك لمدة أسبوع. تواصل معي على دسكورد عشان نناقش التفاصيل.</span></div>
-        <div class="price-big">
-            <span>${{ "%.0f" % product.price }}</span>
-            <span style="font-size:.8rem;color:#888;font-weight:400">/ week</span>
-            <span style="font-size:.7rem;color:#555;font-weight:400;display:block;margin-top:2px">أسبوعياً — يتجدد تلقائياً كل 7 أيام</span>
+        <div style="text-align:center;animation:subFadeUp .5s ease .1s both">
+            <div class="cat" style="color:#555;font-size:.7rem;text-transform:uppercase;letter-spacing:2px">{{ product.category }}</div>
+            <h1 style="font-size:1.8rem;margin:6px 0 2px;background:linear-gradient(135deg,#f0f0f0,#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">{{ product.name }}</h1>
+            <div class="ar" style="color:#888;font-size:.9rem;margin-bottom:8px">{{ product.name_ar }}</div>
         </div>
-        <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:16px;margin:15px 0;text-align:center">
-            <div style="color:#22c55e;font-weight:600;margin-bottom:8px"><i class="fas fa-clock"></i> Subscription / اشتراك أسبوعي</div>
-            <div style="color:#aaa;font-size:.85rem;margin-bottom:6px">📅 7 days of work / 7 أيام شغل</div>
-            <div style="color:#aaa;font-size:.85rem">💬 Contact on Discord after purchase / تواصل على دسكورد بعد الشراء</div>
+        <div class="sub-divider" style="animation:subFadeUp .5s ease .15s both"></div>
+        <div style="text-align:center;animation:subFadeUp .5s ease .2s both">
+            <span class="sub-price">${{ "%.0f" % product.price }}</span>
+            <span class="sub-price-label"> / week • أسبوعياً</span>
         </div>
-        <div class="actions">
+        <div style="text-align:center;color:#aaa;font-size:.85rem;margin:6px 0 4px;animation:subFadeUp .5s ease .25s both">
+            <i class="fas fa-sync-alt" style="color:#22c55e"></i> يتجدد كل 7 أيام — Renews every 7 days
+        </div>
+        <div class="sub-divider" style="animation:subFadeUp .5s ease .3s both"></div>
+        <div style="animation:subFadeUp .5s ease .35s both;margin:10px 0">
+            <div style="text-align:center;color:#22c55e;font-weight:600;font-size:.95rem;margin-bottom:12px"><i class="fas fa-check-circle"></i> What You Get / اللي تحصل عليه</div>
+            <div class="sub-features">
+                <div class="sub-feature"><div class="sf-icon">💻</div><div class="sf-title">Custom Code</div><div class="sf-desc">أكواد مخصصة لمشروعك</div></div>
+                <div class="sub-feature"><div class="sf-icon">🐛</div><div class="sf-title">Bug Fixing</div><div class="sf-desc">إصلاح الأخطاء</div></div>
+                <div class="sub-feature"><div class="sf-icon">⚡</div><div class="sf-title">Fast Delivery</div><div class="sf-desc">تسليم سريع</div></div>
+                <div class="sub-feature"><div class="sf-icon">💬</div><div class="sf-title">Direct Support</div><div class="sf-desc">دعم مباشر عالدسكورد</div></div>
+                <div class="sub-feature"><div class="sf-icon">🔄</div><div class="sf-title">Weekly Updates</div><div class="sf-desc">تحديثات أسبوعية</div></div>
+                <div class="sub-feature"><div class="sf-icon">🔒</div><div class="sf-title">Secure Payment</div><div class="sf-desc">دفع آمن</div></div>
+            </div>
+        </div>
+        <div class="sub-counter" style="animation:subFadeUp .5s ease .4s both">
+            <div class="sub-counter-item"><div class="sub-counter-num">7</div><div class="sub-counter-label">Days / أيام</div></div>
+            <div class="sub-counter-item"><div class="sub-counter-num">50+</div><div class="sub-counter-label">Projects / مشروع</div></div>
+            <div class="sub-counter-item"><div class="sub-counter-num">⭐</div><div class="sub-counter-label">5-Star / نجوم</div></div>
+        </div>
+        <div class="sub-trust" style="animation:subFadeUp .5s ease .45s both">
+            <span class="sub-trust-item"><i class="fas fa-shield-alt"></i> Verified</span>
+            <span class="sub-trust-item"><i class="fas fa-bolt"></i> Fast Response</span>
+            <span class="sub-trust-item"><i class="fas fa-headset"></i> 24/7 Support</span>
+        </div>
+        <div class="actions" style="animation:subFadeUp .5s ease .5s both">
             {% if current_user.is_authenticated %}
-                <a href="{{ url_for('cart_add', pid=product.id) }}" class="btn" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#0a0a0a;font-weight:700;padding:12px 30px;border:none;transition:all .3s"><i class="fas fa-shopping-cart"></i> Subscribe Now $50/week</a>
+                <a href="{{ url_for('cart_add', pid=product.id) }}" class="sub-cta btn" style="display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#0a0a0a;font-weight:800;font-size:1rem;border:none;text-decoration:none"><i class="fas fa-rocket"></i> Start Now — $50/week</a>
             {% else %}
-                <a href="{{ url_for('login') }}" class="btn"><i class="fas fa-sign-in-alt"></i> Login to Subscribe</a>
+                <a href="{{ url_for('login') }}" class="sub-cta btn" style="display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#0a0a0a;font-weight:800;font-size:1rem;border:none;text-decoration:none"><i class="fas fa-rocket"></i> Login to Subscribe</a>
             {% endif %}
         </div>
-        <div style="background:#0a0a0a;border:1px solid #222;border-radius:10px;padding:14px;margin:15px 0;text-align:center">
-            <div style="color:#fff;font-weight:600;margin-bottom:6px"><i class="fab fa-discord" style="color:#5865F2"></i> بعد الدفع، تواصل معي هنا</div>
-            <a href="https://discord.gg/ayvvnRaJw7" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:#5865F2;color:#fff;border-radius:8px;font-weight:600;text-decoration:none;transition:all .3s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'"><i class="fab fa-discord"></i> @root_0351 — Message Now</a>
+        <div style="background:rgba(88,101,242,0.06);border:1px solid rgba(88,101,242,0.15);border-radius:12px;padding:16px;margin:18px 0 0;text-align:center;animation:subFadeUp .5s ease .55s both">
+            <div style="color:#5865F2;font-weight:600;margin-bottom:8px;font-size:.9rem"><i class="fab fa-discord"></i> بعد الدفع، تواصل معي على دسكورد</div>
+            <div style="color:#aaa;font-size:.8rem;margin-bottom:10px">أرسل لي رقم الطلب وبناقش معك التفاصيل<br><span style="color:#666">Send me your order number and I'll discuss the details</span></div>
+            <a href="https://discord.gg/ayvvnRaJw7" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 28px;background:#5865F2;color:#fff;border-radius:8px;font-weight:600;font-size:.85rem;text-decoration:none;transition:all .3s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'"><i class="fab fa-discord"></i> @root_0351 — Message Now</a>
         </div>
-        <div class="support-note">
+        <div class="support-note" style="margin-top:16px;animation:subFadeUp .5s ease .6s both">
             <i class="fas fa-shield-alt" style="color:#22c55e"></i> Secure payment via <i class="fab fa-apple" style="color:#fff;font-size:16px;vertical-align:middle"></i> <i class="fab fa-paypal" style="color:#0070ba;font-size:18px;vertical-align:middle"></i> <i class="fas fa-university" style="color:#fff;font-size:16px;vertical-align:middle"></i> — الدفع آمن
         </div>
     </div>
