@@ -33,8 +33,10 @@
     .support-note a:hover{text-decoration:underline}
     .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:20px 0}
     .pricing-item{background:linear-gradient(145deg,#0d1f0d,#1a2a1a);border:1px solid #22c55e;border-radius:12px;padding:20px;text-align:center;transition:all .4s cubic-bezier(.4,0,.2,1);opacity:0;transform:translateY(30px);position:relative;overflow:hidden}
-    .pricing-item:nth-child(1){animation-delay:.1s}.pricing-item:nth-child(2){animation-delay:.15s}.pricing-item:nth-child(3){animation-delay:.2s}.pricing-item:nth-child(4){animation-delay:.25s}.pricing-item:nth-child(5){animation-delay:.3s}.pricing-item:nth-child(6){animation-delay:.35s}.pricing-item:nth-child(7){animation-delay:.4s}.pricing-item:nth-child(8){animation-delay:.45s}.pricing-item:nth-child(9){animation-delay:.5s}
     .pricing-item.show{opacity:1;transform:translateY(0)}
+    .pricing-item::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:2px;background:linear-gradient(90deg,transparent,#22c55e,transparent);animation:itemSweep 3s ease-in-out infinite;opacity:0}
+    .pricing-item.show::after{opacity:1}
+    @keyframes itemSweep{0%{left:-100%}50%{left:100%}100%{left:100%}}
     .pricing-item:hover{border-color:#4ade80;transform:translateY(-6px) scale(1.02);box-shadow:0 15px 40px rgba(34,197,94,0.2)}
     .pricing-item::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(34,197,94,0.06),transparent 60%);opacity:0;transition:opacity .5s}
     .pricing-item:hover::before{opacity:1}
@@ -42,8 +44,16 @@
     .pricing-item:hover .pi-icon{transform:scale(1.2) rotate(-8deg)}
     .pricing-item .pi-name{color:#22c55e;font-weight:700;font-size:.95rem;margin-bottom:4px}
     .pricing-item .pi-ar{color:#666;font-size:.75rem;margin-bottom:10px}
-    .pricing-item .pi-price{color:#f0f0f0;font-weight:800;font-size:1.2rem;display:inline-block;padding:4px 14px;background:rgba(34,197,94,0.15);border-radius:20px;transition:all .3s}
+    .pricing-item .pi-price{color:#f0f0f0;font-weight:800;font-size:1.2rem;display:inline-block;padding:4px 14px;background:rgba(34,197,94,0.15);border-radius:20px;transition:all .3s;position:relative;overflow:hidden}
+    .pricing-item .pi-price::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);animation:priceShimmer 3s ease-in-out infinite}
+    @keyframes priceShimmer{0%{left:-100%}50%{left:100%}100%{left:100%}}
     .pricing-item:hover .pi-price{background:#22c55e;color:#0a0a0a;transform:scale(1.05)}
+    .pricing-item .pi-corner{position:absolute;width:6px;height:6px;border-color:#22c55e;border-style:solid;opacity:0;transition:opacity .4s}
+    .pricing-item.show .pi-corner{opacity:1}
+    .pricing-item .pi-corner.tl{top:4px;left:4px;border-width:2px 0 0 2px;border-radius:4px 0 0 0}
+    .pricing-item .pi-corner.tr{top:4px;right:4px;border-width:2px 2px 0 0;border-radius:0 4px 0 0}
+    .pricing-item .pi-corner.bl{bottom:4px;left:4px;border-width:0 0 2px 2px;border-radius:0 0 0 4px}
+    .pricing-item .pi-corner.br{bottom:4px;right:4px;border-width:0 2px 2px 0;border-radius:0 0 4px 0}
     .fivem-cta{text-align:center;margin:25px 0;padding:20px;background:linear-gradient(145deg,#0d1f0d,#1a2a1a);border:1px solid #22c55e;border-radius:14px;animation:fadeUp .8s ease .6s both;position:relative}
     .fivem-cta::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border-radius:16px;background:linear-gradient(45deg,#22c55e,transparent,#22c55e,transparent);background-size:300% 300%;animation:ctaBorder 3s linear infinite;z-index:-1}
     @keyframes ctaBorder{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
@@ -54,17 +64,33 @@
     .fivem-cta .discord-btn:hover::after{opacity:1}
     @keyframes fiveMPulse{0%,100%{box-shadow:0 0 20px rgba(245,124,0,0.2),0 0 40px rgba(245,124,0,0.1)}50%{box-shadow:0 0 40px rgba(245,124,0,0.4),0 0 80px rgba(245,124,0,0.2)}}
     @keyframes titleGlow{0%,100%{text-shadow:0 0 10px rgba(34,197,94,0.3)}50%{text-shadow:0 0 25px rgba(34,197,94,0.6)}}
-    .fivem-title{animation:titleGlow 2s ease-in-out infinite}
+    .fivem-title{animation:titleGlow 2s ease-in-out infinite;position:relative}
     @keyframes slideIn{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
     .fivem-badge{display:inline-block;padding:5px 16px;background:rgba(245,124,0,0.15);border:1px solid rgba(245,124,0,0.3);border-radius:20px;color:#f57c00;font-size:.7rem;font-weight:600;letter-spacing:1px;animation:slideIn .6s ease forwards}
+    @keyframes scanLine{0%{top:-10%}100%{top:110%}}
+    .fivem-scan{position:absolute;width:100%;height:3px;background:linear-gradient(90deg,transparent,rgba(34,197,94,0.4),transparent);animation:scanLine 3s linear infinite;pointer-events:none}
+    .fivem-header{position:relative;overflow:hidden}
+    @keyframes floatP{0%,100%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-200px) translateX(50px);opacity:0}}
+    .fivem-particle{position:absolute;width:3px;height:3px;background:#22c55e;border-radius:50%;pointer-events:none;opacity:0;box-shadow:0 0 6px #22c55e}
+    .fivem-particle:nth-child(1){left:10%;animation:floatP 6s ease-in-out 1s infinite}
+    .fivem-particle:nth-child(2){left:30%;animation:floatP 7s ease-in-out 2s infinite;width:2px;height:2px}
+    .fivem-particle:nth-child(3){left:50%;animation:floatP 5s ease-in-out .5s infinite;width:4px;height:4px}
+    .fivem-particle:nth-child(4){left:70%;animation:floatP 8s ease-in-out 3s infinite;width:2px;height:2px}
+    .fivem-particle:nth-child(5){left:90%;animation:floatP 6.5s ease-in-out 1.5s infinite}
+    .fivem-particle:nth-child(6){left:20%;animation:floatP 5.5s ease-in-out 4s infinite;width:3px;height:3px}
+    .fivem-particle:nth-child(7){left:80%;animation:floatP 7.5s ease-in-out 2.5s infinite;width:2px;height:2px}
+    .fivem-particle:nth-child(8){left:60%;animation:floatP 6s ease-in-out .8s infinite;width:3px;height:3px}
+    .fivem-cost-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 18px;background:rgba(245,124,0,0.1);border:1px solid rgba(245,124,0,0.3);border-radius:20px;color:#f57c00;font-weight:600;font-size:.8rem}
 </style>
 <div class="product">
     <a href="{{ url_for('shop') }}" class="back"><i class="fas fa-arrow-left"></i> Back to shop</a>
 
     {% if 'FiveM' in product.category or 'FiveM' in product.name %}
     <div class="product-card">
-        <div style="width:100%;height:200px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0d1f0d,#111);border-radius:10px;margin-bottom:18px;border:1px solid #22c55e;font-size:4rem;animation:fiveMPulse 3s ease-in-out infinite">
-            <svg viewBox="0 0 24 24" style="width:80px;height:80px;fill:#f57c00;filter:drop-shadow(0 0 20px rgba(245,124,0,0.3))"><path d="M22.4 24h-5.225c-.117 0-.455-1.127-1.026-3.375-1.982-6.909-3.124-10.946-3.417-12.12l3.37-3.325h.099c.454 1.42 2.554 7.676 6.299 18.768ZM12.342 7.084h-.048a3.382 3.385 0 0 1-.098-.492v-.098a102.619 102.715 0 0 1 3.272-3.275c.13.196.196.356.196.491v.05a140.694 140.826 0 0 1-3.322 3.324ZM5.994 10.9h-.05c.67-2.12 1.076-3.209 1.223-3.275L14.492.343c.08 0 .258.524.533 1.562zm1.37-4.014h-.05C8.813 2.342 9.612.048 9.71 0h4.495v.05a664.971 664.971 0 0 1-6.841 6.839Zm-2.69 7.874h-.05c.166-.798.554-1.418 1.174-1.855a312.918 313.213 0 0 1 5.71-5.717h.05c-.117.672-.375 1.175-.781 1.52zM1.598 24l-.098-.05c1.399-4.172 2.148-6.322 2.248-6.45l6.74-6.694v.05C10.232 11.88 8.974 16.263 6.73 24Z"/></svg>
+        <div class="fivem-header" style="width:100%;height:200px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0d1f0d,#111);border-radius:10px;margin-bottom:18px;border:1px solid #22c55e;font-size:4rem;animation:fiveMPulse 3s ease-in-out infinite">
+            <div class="fivem-scan"></div>
+            <div class="fivem-particle"></div><div class="fivem-particle"></div><div class="fivem-particle"></div><div class="fivem-particle"></div><div class="fivem-particle"></div><div class="fivem-particle"></div><div class="fivem-particle"></div><div class="fivem-particle"></div>
+            <svg viewBox="0 0 24 24" style="width:80px;height:80px;fill:#f57c00;filter:drop-shadow(0 0 20px rgba(245,124,0,0.3));position:relative;z-index:1"><path d="M22.4 24h-5.225c-.117 0-.455-1.127-1.026-3.375-1.982-6.909-3.124-10.946-3.417-12.12l3.37-3.325h.099c.454 1.42 2.554 7.676 6.299 18.768ZM12.342 7.084h-.048a3.382 3.385 0 0 1-.098-.492v-.098a102.619 102.715 0 0 1 3.272-3.275c.13.196.196.356.196.491v.05a140.694 140.826 0 0 1-3.322 3.324ZM5.994 10.9h-.05c.67-2.12 1.076-3.209 1.223-3.275L14.492.343c.08 0 .258.524.533 1.562zm1.37-4.014h-.05C8.813 2.342 9.612.048 9.71 0h4.495v.05a664.971 664.971 0 0 1-6.841 6.839Zm-2.69 7.874h-.05c.166-.798.554-1.418 1.174-1.855a312.918 313.213 0 0 1 5.71-5.717h.05c-.117.672-.375 1.175-.781 1.52zM1.598 24l-.098-.05c1.399-4.172 2.148-6.322 2.248-6.45l6.74-6.694v.05C10.232 11.88 8.974 16.263 6.73 24Z"/></svg>
         </div>
         <div class="cat">{{ product.category }}</div>
         <h1 class="fivem-title">FiveM Server Development</h1>
@@ -79,15 +105,15 @@
 
         <h3 style="color:#22c55e;margin-bottom:15px;text-align:center;font-size:1.2rem"><i class="fas fa-list"></i> Available Services / الخدمات المتاحة</h3>
         <div class="pricing-grid" id="fivemPricing">
-            <div class="pricing-item"><span class="pi-icon">👮</span><div class="pi-name">Police System</div><div class="pi-ar">نظام شرطة</div><span class="pi-price">$30</span></div>
-            <div class="pricing-item"><span class="pi-icon">💰</span><div class="pi-name">Drugs System</div><div class="pi-ar">نظام مخدرات</div><span class="pi-price">$25</span></div>
-            <div class="pricing-item"><span class="pi-icon">🏪</span><div class="pi-name">Stores / Robbery</div><div class="pi-ar">متاجر وسرقات</div><span class="pi-price">$20</span></div>
-            <div class="pricing-item"><span class="pi-icon">🚗</span><div class="pi-name">Car Boosting</div><div class="pi-ar">نظام سيارات</div><span class="pi-price">$25</span></div>
-            <div class="pricing-item"><span class="pi-icon">💼</span><div class="pi-name">Jobs System</div><div class="pi-ar">نظام وظائف</div><span class="pi-price">$20</span></div>
-            <div class="pricing-item"><span class="pi-icon">🏠</span><div class="pi-name">Housing System</div><div class="pi-ar">نظام منازل</div><span class="pi-price">$35</span></div>
-            <div class="pricing-item"><span class="pi-icon">📱</span><div class="pi-name">Phone System</div><div class="pi-ar">نظام جوال</div><span class="pi-price">$30</span></div>
-            <div class="pricing-item"><span class="pi-icon">⚙️</span><div class="pi-name">Custom Script</div><div class="pi-ar">سكريبت مخصص</div><span class="pi-price">$$$</span></div>
-            <div class="pricing-item"><span class="pi-icon">🔧</span><div class="pi-name">Full Server Setup</div><div class="pi-ar">إعداد سيرفر كامل</div><span class="pi-price">$100+</span></div>
+            <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">👮</span><div class="pi-name">Police System</div><div class="pi-ar">نظام شرطة</div><span class="pi-price">$30</span></div>
+            <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">💰</span><div class="pi-name">Drugs System</div><div class="pi-ar">نظام مخدرات</div><span class="pi-price">$25</span></div>
+            <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">🏪</span><div class="pi-name">Stores / Robbery</div><div class="pi-ar">متاجر وسرقات</div><span class="pi-price">$20</span></div>
+            <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">🚗</span><div class="pi-name">Car Boosting</div><div class="pi-ar">نظام سيارات</div><span class="pi-price">$25</span></div>
+            <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">💼</span><div class="pi-name">Jobs System</div><div class="pi-ar">نظام وظائف</div><span class="pi-price">$20</span></div>
+            <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">🏠</span><div class="pi-name">Housing System</div><div class="pi-ar">نظام منازل</div><span class="pi-price">$35</span></div>
+            <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">📱</span><div class="pi-name">Phone System</div><div class="pi-ar">نظام جوال</div><span class="pi-price">$30</span></div>
+            <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">⚙️</span><div class="pi-name">Custom Script</div><div class="pi-ar">سكريبت مخصص</div><span class="pi-price">$$$</span></div>
+            <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">🔧</span><div class="pi-name">Full Server Setup</div><div class="pi-ar">إعداد سيرفر كامل</div><span class="pi-price">$100+</span></div>
         </div>
 
         <div class="fivem-cta">
@@ -96,7 +122,7 @@
         </div>
 
         <div class="support-note" style="margin-top:15px">
-            <i class="fas fa-shield-alt" style="color:#22c55e"></i> Secure payment via <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#0070ba;vertical-align:middle"><path d="M9.5 2H5.5c-.5 0-.9.4-1 .9L2.1 17c-.1.4.3.7.6.7h2.8c.4 0 .8-.3.9-.7l.6-3.5c.1-.5.5-.9 1-.9h1.5c3.7 0 6.5-1.8 7.1-5.3.4-2.2-.1-3.9-1.3-5.2-1.3-1.3-3.6-2.1-6.8-2.1M10 8.9c-.3 1.8.2 3 1.6 3.7.8.4 2 .7 3.4.7h.8l-.5 3.2c-.1.3.1.5.4.5h1.7c.5 0 .9-.4 1-.9l.8-5.3v-.2c0-.5-.4-.9-.9-.9h-1.1c-.8 0-1.2-.3-1.5-.7-.3-.4-.2-1.1-.1-1.7.3-1.5-.2-2.3-1.4-2.7-.6-.2-1.4-.3-2.3-.3h-1.6c-.4 0-.8.4-.9.8l-.8 4.8"/></svg> PayPal / <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#22c55e;vertical-align:middle"><path d="M2 6h20v3H2zm-1 6h22v2H1zM0 18h24v4H0z"/></svg> IBAN
+            <i class="fas fa-shield-alt" style="color:#22c55e"></i> Secure payment via <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#0070ba;vertical-align:middle"><path d="M19.1 5.7c-1.2-1.3-3.2-2-5.9-2H5.8c-.4 0-.8.3-.9.7L2 18.9c-.1.4.2.7.6.7h4.1l1-5.3.6-3.5c.1-.4.4-.7.8-.7h2.2c2.1 0 3.8.4 4.8 1.4.5.5.8 1.1.9 1.9.1.8 0 1.7-.4 2.7-.6 1.5-1.6 2.5-3.1 3.1-.8.3-1.7.5-2.7.6h-2c-.3 0-.6.2-.7.5l-.7 3.5c-.1.3.2.7.5.7h3.5c.5 0 1-.1 1.5-.2 2.5-.5 4.6-1.7 6-3.9 1.1-1.7 1.5-3.8 1.1-5.9-.1-.6-.3-1.2-.6-1.7-.1-.2-.3-.3-.5-.5.2-.2.5-.4.7-.6 1.5-1.5 1.8-3.7 1-6.2z"/></svg> / <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#22c55e;vertical-align:middle"><rect x="1" y="18" width="22" height="4" rx="1" fill="#22c55e"/><polygon points="12,1 2,10 22,10" fill="#22c55e"/><rect x="2" y="10" width="20" height="8" fill="#0d1f0d" stroke="#22c55e" stroke-width="1"/><rect x="5" y="11" width="2.5" height="7" fill="#22c55e" rx="1"/><rect x="11" y="11" width="2.5" height="7" fill="#22c55e" rx="1"/><rect x="16.5" y="11" width="2.5" height="7" fill="#22c55e" rx="1"/><rect x="9.5" y="14" width="5" height="4" fill="#0a0a0a" rx="1"/></svg>
         </div>
     </div>
 
