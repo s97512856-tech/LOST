@@ -115,7 +115,7 @@
         mc.width=mw;mc.height=mh;
         const chars='アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789LOST';
         let parts=[],mx=mw/2,my=mh/2;
-        onmousemove=e=>{mx=e.clientX;my=e.clientY;for(let i=0;i<3;i++)parts.push({x:mx+(Math.random()-0.5)*30,y:my-20+Math.random()*20,vx:(Math.random()-0.5)*2-0.5,vy:Math.random()*2+1,life:1,ch:chars[Math.floor(Math.random()*chars.length)]})};
+        onmousemove=e=>{mx=e.clientX;my=e.clientY;for(let i=0;i<3;i++)parts.push({x:mx+(Math.random()-0.5)*30,y:my+Math.random()*30,vx:(Math.random()-0.5)*2-0.5,vy:Math.random()*2+1,life:1,ch:chars[Math.floor(Math.random()*chars.length)]})};
         onresize=()=>{mw=innerWidth;mh=innerHeight;mc.width=mw;mc.height=mh};
         function draw(){
             mctx.clearRect(0,0,mw,mh);
