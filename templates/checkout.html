@@ -1,110 +1,84 @@
 {% extends "base.html" %}
 {% block title %}Checkout — LOST{% endblock %}
 {% block content %}
-<style>
-    .checkout{max-width:560px;margin:40px auto;padding:0 20px}
-    .checkout h2{font-size:1.8rem;font-weight:700;text-align:center;margin-bottom:25px;background:linear-gradient(135deg,#22c55e,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .summary{background:linear-gradient(145deg,#111,#1a1a1a);border:1px solid #222;border-radius:14px;padding:22px;margin-bottom:20px}
-    .summary .item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1a1a1a;font-size:.9rem}
-    .summary .item:last-child{border-bottom:none}
-    .summary .item .name{color:#f0f0f0}
-    .summary .item .sub{color:#888;font-size:.8rem}
-    .total-row{display:flex;justify-content:space-between;padding:15px 0 5px;font-size:1.5rem;font-weight:800;color:#22c55e}
-    .methods{margin:20px 0}
-    .methods label{display:block;padding:14px 18px;background:#111;border:2px solid #222;border-radius:10px;margin-bottom:10px;cursor:pointer;transition:all .35s ease}
-    .methods label:hover{border-color:#444;background:#161616;transform:translateX(3px)}
-    .methods label:has(input:checked){border-color:#22c55e;background:rgba(34,197,94,0.05);transform:translateX(5px)}
-    .methods input{display:none}
-    .methods .method-row{display:flex;align-items:center;gap:14px}
-    .methods .badge{font-size:1.6rem;width:36px;text-align:center}
-    .methods .badge i{font-size:1.5rem}
-    .methods .method-name{font-weight:600;color:#f0f0f0;transition:color .3s}
-    .methods label:has(input:checked) .method-name{color:#22c55e}
-    .methods .method-desc{color:#666;font-size:.8rem;display:block;margin-top:2px}
-    .methods .popular-tag{font-size:.65rem;background:#22c55e;color:#0a0a0a;padding:2px 8px;border-radius:10px;font-weight:700;margin-left:8px;vertical-align:middle}
-    .iban-info{background:linear-gradient(145deg,#0d1f0d,#111);border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:22px;margin:15px 0;display:none;animation:fadeUp .35s ease}
-    .iban-info.show{display:block}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-    .iban-info p{color:#888;font-size:.85rem;margin-bottom:10px}
-    .iban-info .code{background:#0a0a0a;padding:14px;border-radius:8px;border:1px solid rgba(34,197,94,0.15);color:#22c55e;font-size:1.15rem;font-family:'Courier New',monospace;letter-spacing:3px;text-align:center;user-select:all}
-    .btn-primary{width:100%;padding:16px;font-size:1.05rem;font-weight:700;border-radius:10px}
-    .free-note{text-align:center;padding:18px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:10px;color:#22c55e;font-weight:600;margin:15px 0;display:flex;align-items:center;justify-content:center;gap:8px}
-    .support-note{margin-top:18px;padding:14px 18px;background:#111;border:1px solid #222;border-radius:10px;text-align:center;font-size:.85rem;color:#888;transition:all .3s}
-    .support-note:hover{border-color:rgba(34,197,94,0.3)}
-    .support-note i{color:#5865F2;margin-right:4px}
-    .support-note a{color:#22c55e;font-weight:600}
-    .support-note a:hover{text-decoration:underline}
-</style>
+
+<style> .checkout{max-width:560px;margin:40px auto;padding:0 20px} .checkout h2{font-size:1.8rem;font-weight:700;text-align:center;margin-bottom:25px;background:linear-gradient(135deg,#22c55e,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text} .summary{background:linear-gradient(145deg,#111,#1a1a1a);border:1px solid #222;border-radius:14px;padding:22px;margin-bottom:20px} .summary .item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1a1a1a;font-size:.9rem} .summary .item:last-child{border-bottom:none} .summary .item .name{color:#f0f0f0} .summary .item .sub{color:#888;font-size:.8rem} .total-row{display:flex;justify-content:space-between;padding:15px 0 5px;font-size:1.5rem;font-weight:800;color:#22c55e} .methods{margin:20px 0} .methods label{display:block;padding:14px 18px;background:#111;border:2px solid #222;border-radius:10px;margin-bottom:10px;cursor:pointer;transition:all .35s ease} .methods label:hover{border-color:#444;background:#161616;transform:translateX(3px)} .methods label:has(input:checked){border-color:#22c55e;background:rgba(34,197,94,0.05);transform:translateX(5px)} .methods input{display:none} .methods .method-row{display:flex;align-items:center;gap:14px} .methods .badge{font-size:1.6rem;width:36px;text-align:center} .methods .badge i{font-size:1.5rem} .methods .method-name{font-weight:600;color:#f0f0f0;transition:color .3s} .methods label:has(input:checked) .method-name{color:#22c55e} .methods .method-desc{color:#666;font-size:.8rem;display:block;margin-top:2px} .methods .popular-tag{font-size:.65rem;background:#22c55e;color:#0a0a0a;padding:2px 8px;border-radius:10px;font-weight:700;margin-left:8px;vertical-align:middle} .iban-info{background:linear-gradient(145deg,#0d1f0d,#111);border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:22px;margin:15px 0;display:none;animation:fadeUp .35s ease} .iban-info.show{display:block} @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}} .iban-info p{color:#888;font-size:.85rem;margin-bottom:10px} .iban-info .code{background:#0a0a0a;padding:14px;border-radius:8px;border:1px solid rgba(34,197,94,0.15);color:#22c55e;font-size:1.15rem;font-family:'Courier New',monospace;letter-spacing:3px;text-align:center;user-select:all} .btn-primary{width:100%;padding:16px;font-size:1.05rem;font-weight:700;border-radius:10px} .free-note{text-align:center;padding:18px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:10px;color:#22c55e;font-weight:600;margin:15px 0;display:flex;align-items:center;justify-content:center;gap:8px} .support-note{margin-top:18px;padding:14px 18px;background:#111;border:1px solid #222;border-radius:10px;text-align:center;font-size:.85rem;color:#888;transition:all .3s} .support-note:hover{border-color:rgba(34,197,94,0.3)} .support-note i{color:#5865F2;margin-right:4px} .support-note a{color:#22c55e;font-weight:600} .support-note a:hover{text-decoration:underline} </style>
+
 <div class="checkout">
     <h2><i class="fas fa-credit-card"></i> Checkout</h2>
+
     <div class="summary">
         {% for item in items %}
-            <div class="item">
-                <span class="name">{{ item.name }} × {{ item.quantity }}</span>
-                <span>${{ "%.0f" % (item.price * item.quantity) }}</span>
-            </div>
+        <div class="item">
+            <span class="name">{{ item.name }} × {{ item.quantity }}</span>
+            <span>${{ "%.0f" % (item.price * item.quantity) }}</span>
+        </div>
         {% endfor %}
+
         <div class="total-row">
             <span>Total</span>
-            <span>{% if total == 0 %}<i class="fas fa-gift"></i> FREE{% else %}${{ "%.0f" % total }}{% endif %}</span>
+            <span>
+                {% if total == 0 %}
+                    <i class="fas fa-gift"></i> FREE
+                {% else %}
+                    ${{ "%.0f" % total }}
+                {% endif %}
+            </span>
         </div>
     </div>
 
-    {% if total == 0 %}
-        <form method="POST">
-            <input type="hidden" name="method" value="free">
-            <div class="free-note"><i class="fas fa-gift"></i> This product is free! Click below to get it.</div>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-download"></i> Get it Free / احصل عليه مجاناً</button>
-        </form>
-    {% else %}
-        <form method="POST">
-            <div class="methods">
-                <label>
-                    <input type="radio" name="method" value="paypal" onchange="toggleIban()">
-                    <div class="method-row">
-                        <span class="badge" style="background:transparent;border-color:transparent;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;width:52px;height:24px"><i class="fab fa-paypal" style="color:#0070ba;font-size:20px"></i></span>
-                        <span><span class="method-name">PayPal <span class="popular-tag">POPULAR</span></span>
-                        <span class="method-desc">الدفع عبر PayPal — سريع وآمن</span></span>
-                    </div>
-                </label>
-                <label>
-                    <input type="radio" name="method" value="applepay" onchange="toggleIban()">
-                    <div class="method-row">
-                        <span class="badge" style="background:transparent;border-color:#000;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;width:52px;height:24px"><i class="fab fa-apple" style="color:#fff;font-size:18px"></i></span>
-                        <span><span class="method-name">Apple Pay</span>
-                        <span class="method-desc">ادفع بـ Apple Pay — سهل ومباشر</span></span>
-                    </div>
-                </label>
-                <label>
-                    <input type="radio" name="method" value="iban" checked onchange="toggleIban()">
-                    <div class="method-row">
-                        <span class="badge" style="background:transparent;border-color:transparent;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;width:52px;height:24px"><i class="fas fa-university" style="color:#fff;font-size:18px"></i></span>
-                        <span><span class="method-name">IBAN Transfer</span>
-                        <span class="method-desc">تحويل بنكي — يتم التأكيد يدوياً خلال 24 ساعة</span></span>
-                    </div>
-                </label>
+    <div class="methods">
+        <label>
+            <div class="method-row">
+                <span class="badge">💳</span>
+                <div>
+                    <span class="method-name">Credit Card (Stripe)</span>
+                    <span class="method-desc">Pay securely with your card</span>
+                </div>
             </div>
-
-            <div class="iban-info" id="ibanInfo" style="display:none">
-                <p><i class="fas fa-info-circle"></i> أرسل المبلغ المحدد إلى حساب IBAN هذا:</p>
-                <div class="code">AE16 0500 0000 0002 9390 395</div>
-                <p style="margin-top:10px;color:#666;font-size:.8rem">بعد التحويل، تواصل معي عشان أفعّل طلبك</p>
+            <input type="radio" name="method" value="card" checked onchange="onMethodChange()">
+        </label>
+        <label>
+            <div class="method-row">
+                <span class="badge">🏦</span>
+                <div>
+                    <span class="method-name">IBAN Transfer</span>
+                    <span class="method-desc">Bank transfer (manual confirmation)</span>
+                </div>
             </div>
-
-            <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Place Order / تأكيد الطلب</button>
-        </form>
-    {% endif %}
-
-    <div class="support-note">
-        <i class="fab fa-discord"></i> After purchasing, if you face any issue with the product, contact us on <a href="https://discord.gg/ayvvnRaJw7" target="_blank">Discord</a> / بعد الشراء، إذا واجهت مشكلة في المنتج، تواصل معنا على دسكورد
+            <input type="radio" name="method" value="iban" onchange="onMethodChange()">
+        </label>
+        <label style="opacity:0.5;cursor:not-allowed;border-color:#333;">
+            <div class="method-row">
+                <span class="badge">🍎</span>
+                <div>
+                    <span class="method-name">Apple Pay</span>
+                    <span class="method-desc">Unavailable / غير متوفر حالياً</span>
+                </div>
+            </div>
+            <input type="radio" name="method" value="applepay" disabled>
+        </label>
     </div>
+
 </div>
 
 <script>
-    function toggleIban(){
-        const v = document.querySelector('input[name="method"]:checked');
-        const info = document.getElementById('ibanInfo');
-        if (info) info.classList.toggle('show', v && v.value === 'iban');
+function onMethodChange(){
+    const v=document.querySelector('input[name="method"]:checked').value;
+    const f=document.getElementById('payForm');
+    const b=document.getElementById('submitBtn');
+    const info=document.getElementById('ibanInfo');
+
+    if(v==='card'){
+        f.action='/create-checkout-session';
+        b.innerHTML='<i class="fas fa-credit-card"></i> ادفع بـ Stripe / Pay with Card';
+        info.style.display='none';
+    }else{
+        f.action='/checkout';
+        b.innerHTML='<i class="fas fa-check-circle"></i> Place Order / تأكيد الطلب';
+        info.style.display='block';
     }
+}
 </script>
+
 {% endblock %}
