@@ -102,7 +102,6 @@
             السعر حسب الطلب — تواصل معي على دسكورد للمناقشة<br>
             <span style="color:#555;font-size:.8rem">Price depends on the services you need — contact me to discuss</span>
         </div>
-
         <h3 style="color:#22c55e;margin-bottom:15px;text-align:center;font-size:1.2rem"><i class="fas fa-list"></i> Available Services / الخدمات المتاحة</h3>
         <div class="pricing-grid" id="fivemPricing">
             <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">👮</span><div class="pi-name">Police System</div><div class="pi-ar">نظام شرطة</div><span class="pi-price">$30</span></div>
@@ -115,35 +114,19 @@
             <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">⚙️</span><div class="pi-name">Custom Script</div><div class="pi-ar">سكريبت مخصص</div><span class="pi-price">$$$</span></div>
             <div class="pricing-item"><span class="pi-corner tl"></span><span class="pi-corner tr"></span><span class="pi-corner bl"></span><span class="pi-corner br"></span><span class="pi-icon">🔧</span><div class="pi-name">Full Server Setup</div><div class="pi-ar">إعداد سيرفر كامل</div><span class="pi-price">$100+</span></div>
         </div>
-
         <div class="fivem-cta">
             <p><i class="fab fa-discord" style="color:#5865F2"></i> Contact me on Discord to order / تواصل معي عشان تطلب</p>
             <a href="https://discord.gg/ayvvnRaJw7" target="_blank" class="discord-btn"><i class="fab fa-discord"></i> @root_0351 — Message Now</a>
         </div>
-
         <div class="support-note" style="margin-top:15px">
             <i class="fas fa-shield-alt" style="color:#22c55e"></i> Secure payment via <i class="fab fa-apple" style="color:#fff;font-size:16px;vertical-align:middle"></i> <i class="fab fa-paypal" style="color:#0070ba;font-size:18px;vertical-align:middle"></i> <i class="fas fa-university" style="color:#fff;font-size:16px;vertical-align:middle"></i> — الدفع آمن
         </div>
     </div>
-
     <script>
         const fivemObserver=new IntersectionObserver(e=>{e.forEach(entry=>{if(entry.isIntersecting){const delay=parseFloat(entry.target.style.getPropertyValue('--i')||0)*.06;setTimeout(()=>{entry.target.classList.add('show')},delay*1e3);fivemObserver.unobserve(entry.target)}})},{threshold:.15});
         document.querySelectorAll('.pricing-item').forEach((el,i)=>{el.style.setProperty('--i',i);fivemObserver.observe(el)});
     </script>
 
-    {% else %}
-    <div class="product-card">
-        {% if product.price != 0 %}
-        <div style="width:100%;height:200px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0d1f0d,#111);border-radius:10px;margin-bottom:18px;border:1px solid #222;font-size:4rem">{% if product.category == 'Discord' %}🤖{% elif product.category == 'Web' %}🌐{% elif product.category == 'Dev' %}💻{% else %}📦{% endif %}</div>
-        {% endif %}
-        <div class="cat">{{ product.category }}</div>
-        <h1>{{ product.name }}</h1>
-        <div class="ar">{{ product.name_ar }}</div>
-        <div class="desc">{{ product.description }}</div>
-        <div class="price-big">{% if product.price == 0 %}<i class="fas fa-gift"></i> FREE{% else %}${{ "%.0f" % product.price }}{% endif %}</div>
-        <div class="actions">
-            {% if current_user.is_authenticated %}
-                <a href="{{ url_for('cart_add', pid=product.id) }}" class="btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
     {% elif product.id == 9 %}
     <div class="product-card" style="border-color:#22c55e;background:linear-gradient(145deg,#0d1f0d,#1a2a1a)">
         <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px">
@@ -153,7 +136,7 @@
         <div class="cat">{{ product.category }}</div>
         <h1>{{ product.name }}</h1>
         <div class="ar">{{ product.name_ar }}</div>
-        <div class="desc">I will work on your project for one week. Contact me on Discord to discuss the details. <br><span style="color:#888">باشتغل على مشروعك لمدة أسبوع. تواصل معي على دسكورد عشان نناقش التفاصيل.</span></div>
+        <div class="desc">I will work on your project for one week. Contact me on Discord to discuss the details.<br><span style="color:#888">باشتغل على مشروعك لمدة أسبوع. تواصل معي على دسكورد عشان نناقش التفاصيل.</span></div>
         <div class="price-big">
             <span>${{ "%.0f" % product.price }}</span>
             <span style="font-size:.8rem;color:#888;font-weight:400">/ week</span>
