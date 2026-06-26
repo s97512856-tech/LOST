@@ -111,31 +111,31 @@
     <canvas id="matrixCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999"></canvas>
     <script>
         const mc=document.getElementById('matrixCanvas'),mctx=mc.getContext('2d');
-        let mx=mw=window.innerWidth,my=mh=window.innerHeight;
+        let mx=mw=window.innerWidth/2,my=mh=window.innerHeight/2,mw=window.innerWidth,mh=window.innerHeight;
         mc.width=mw;mc.height=mh;
         const chars='アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789LOST';
-        let pos=0;
+        const cols=Math.floor(mw/20);
+        let drops=Array(cols).fill(1).map(()=>Math.random()*100);
         window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
         window.addEventListener('resize',()=>{mw=window.innerWidth;mh=window.innerHeight;mc.width=mw;mc.height=mh});
         function drawMatrix(){
-            mctx.clearRect(0,0,mw,mh);
-            if(mx<5||mx>mw-5||my<5||my>mh-5)return;
-            pos+=0.4;
-            const cols=4;
-            for(let c=0;c<cols;c++){
-                const x=Math.round(mx/20)*20+10+(c-Math.floor(cols/2))*20;
-                const startY=my-250;
-                const endY=my+80;
-                for(let y=startY+pos%20;y<endY;y+=20){
+            mctx.fillStyle='rgba(10,10,10,0.06)';mctx.fillRect(0,0,mw,mh);
+            const range=300;
+            for(let i=0;i<cols;i++){
+                const x=i*20+10;
+                const dx=Math.abs(x-mx);
+                for(let j=0;j<3;j++){
+                    const y=drops[i]*20-j*20;
                     if(y<0)continue;
-                    const dist=Math.abs(y-my)/250;
-                    const side=c==0||c==cols-1?0.4:1;
-                    const alpha=Math.max(0.05,1-dist)*side;
-                    if(alpha<0.05)continue;
+                    const dist=Math.hypot(dx,Math.abs(y-my));
+                    const alpha=dist<range?Math.max(0.05,1-dist/range):0.03;
+                    if(alpha<0.02)continue;
                     mctx.fillStyle=`rgba(34,197,94,${alpha})`;
                     mctx.font='14px monospace';
-                    mctx.fillText(chars[Math.floor((y+pos+c)/7)%chars.length],x,y);
+                    mctx.fillText(chars[Math.floor((i+j+drops[i]*2)%chars.length)],x,y);
                 }
+                drops[i]+=0.5;
+                if(drops[i]*20>mh+60)drops[i]=Math.random()*-20;
             }
             requestAnimationFrame(drawMatrix);
         }
