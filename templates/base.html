@@ -118,20 +118,20 @@
         window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
         window.addEventListener('resize',()=>{mw=window.innerWidth;mh=window.innerHeight;mc.width=mw;mc.height=mh});
         function drawMatrix(){
-            mctx.fillStyle='rgba(10,10,10,0.05)';mctx.fillRect(0,0,mw,mh);
-            const fadeDist=200;
+            mctx.fillStyle='rgba(10,10,10,0.2)';mctx.fillRect(0,0,mw,mh);
+            const fadeDist=250;
             for(let i=0;i<drops.length;i++){
                 const x=i*20+10;
                 for(let j=0;j<6;j++){
                     const y=drops[i]*20-j*20;
                     if(y<0)continue;
                     const dist=Math.hypot(x-mx,y-my);
-                    const alpha=dist<fadeDist?Math.max(0.1,1-dist/fadeDist):0.08;
+                    const alpha=dist<fadeDist?Math.max(0.3,1-dist/fadeDist):0.15;
                     mctx.fillStyle=`rgba(34,197,94,${alpha})`;
-                    mctx.font='15px monospace';
+                    mctx.font='14px monospace';
                     mctx.fillText(chars[Math.floor(Math.random()*chars.length)],x,y);
                 }
-                drops[i]=(drops[i]+0.5);
+                drops[i]=(drops[i]+0.4);
                 if(drops[i]*20>mh+100&&Math.random()>0.95)drops[i]=0;
             }
             requestAnimationFrame(drawMatrix);
