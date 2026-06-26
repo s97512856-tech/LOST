@@ -111,32 +111,30 @@
     <canvas id="matrixCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999"></canvas>
     <script>
         const mc=document.getElementById('matrixCanvas'),mctx=mc.getContext('2d');
-        let mx=window.innerWidth/2,my=window.innerHeight/2,mw=window.innerWidth,mh=window.innerHeight;
+        let mx=mw=window.innerWidth,my=mh=window.innerHeight;
         mc.width=mw;mc.height=mh;
         const chars='アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789LOST';
-        const cols=Math.floor(mw/20),drops=Array(cols).fill(1).map(()=>Math.random()*50);
-        window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+        let trail=[];
+        window.addEventListener('mousemove',e=>{
+            const px=mx,py=my;
+            mx=e.clientX;my=e.clientY;
+            const steps=Math.max(1,Math.round(Math.hypot(mx-px,my-py)/5));
+            for(let s=0;s<steps;s++){
+                const t=s/steps;
+                trail.push({x:px+(mx-px)*t+Math.random()*8-4,y:py+(my-py)*t-10,ch:chars[Math.floor(Math.random()*chars.length)],sp:1+Math.random()*1.5,op:1,life:30});
+            }
+        });
         window.addEventListener('resize',()=>{mw=window.innerWidth;mh=window.innerHeight;mc.width=mw;mc.height=mh});
         function drawMatrix(){
             mctx.clearRect(0,0,mw,mh);
-            const rad=120;
-            const si=Math.max(0,Math.floor((mx-rad)/20));
-            const ei=Math.min(cols,Math.ceil((mx+rad)/20));
-            for(let i=si;i<ei;i++){
-                const x=i*20+10;
-                if(Math.abs(x-mx)>rad)continue;
-                for(let j=0;j<3;j++){
-                    const y=drops[i]*20-j*20;
-                    if(y<0||Math.abs(y-my)>rad)continue;
-                    const dist=Math.hypot(x-mx,y-my);
-                    if(dist>rad)continue;
-                    mctx.fillStyle=`rgba(34,197,94,${1-dist/rad})`;
-                    mctx.font='14px monospace';
-                    mctx.fillText(chars[(i+j+Math.floor(drops[i]))%chars.length],x,y);
-                }
-                drops[i]+=0.5;
-                if(drops[i]*20>mh+60)drops[i]=Math.random()*-10;
-            }
+            trail=trail.filter(p=>{
+                p.y+=p.sp;p.life--;p.op-=0.03;
+                if(p.life<=0||p.op<=0)return false;
+                mctx.fillStyle=`rgba(34,197,94,${p.op})`;
+                mctx.font='13px monospace';
+                mctx.fillText(p.ch,Math.round(p.x),Math.round(p.y));
+                return true;
+            });
             requestAnimationFrame(drawMatrix);
         }
         drawMatrix();
