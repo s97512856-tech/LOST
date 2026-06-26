@@ -106,6 +106,7 @@ def init_db():
             ]
             for p in default_products:
                 db.execute('INSERT INTO products (name,name_ar,description,desc_ar,price,category) VALUES (?,?,?,?,?,?)', p)
+        db.execute("UPDATE products SET file_url = 'p1_test_product.svg', image = 'p1_test_product.svg' WHERE id = 1 AND (file_url IS NULL OR file_url = '')")
 
 class User(UserMixin):
     def __init__(self, row):
