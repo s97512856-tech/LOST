@@ -118,28 +118,24 @@
         window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
         window.addEventListener('resize',()=>{mw=window.innerWidth;mh=window.innerHeight;mc.width=mw;mc.height=mh});
         function drawMatrix(){
-            mctx.fillStyle='rgba(10,10,10,0.15)';mctx.fillRect(0,0,mw,mh);
-            const rad=130;
-            const startCol=Math.max(0,Math.floor((mx-rad)/20));
-            const endCol=Math.min(cols,Math.ceil((mx+rad)/20));
-            for(let i=startCol;i<endCol;i++){
+            mctx.clearRect(0,0,mw,mh);
+            const rad=120;
+            const si=Math.max(0,Math.floor((mx-rad)/20));
+            const ei=Math.min(cols,Math.ceil((mx+rad)/20));
+            for(let i=si;i<ei;i++){
                 const x=i*20+10;
-                const dx=Math.abs(x-mx);
-                if(dx>rad)continue;
+                if(Math.abs(x-mx)>rad)continue;
                 for(let j=0;j<3;j++){
                     const y=drops[i]*20-j*20;
-                    if(y<0)continue;
-                    const dy=Math.abs(y-my);
-                    if(dy>rad)continue;
-                    const dist=Math.hypot(dx,dy);
+                    if(y<0||Math.abs(y-my)>rad)continue;
+                    const dist=Math.hypot(x-mx,y-my);
                     if(dist>rad)continue;
-                    const alpha=Math.max(0.1,1-dist/rad);
-                    mctx.fillStyle=`rgba(34,197,94,${alpha})`;
+                    mctx.fillStyle=`rgba(34,197,94,${1-dist/rad})`;
                     mctx.font='14px monospace';
-                    mctx.fillText(chars[Math.floor(Math.random()*chars.length)],x,y);
+                    mctx.fillText(chars[(i+j+Math.floor(drops[i]))%chars.length],x,y);
                 }
-                drops[i]+=0.4;
-                if(drops[i]*20>mh+60)drops[i]=Math.random()*-20;
+                drops[i]+=0.5;
+                if(drops[i]*20>mh+60)drops[i]=Math.random()*-10;
             }
             requestAnimationFrame(drawMatrix);
         }
