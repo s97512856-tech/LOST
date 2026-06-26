@@ -120,17 +120,17 @@
         function drawMatrix(){
             mctx.clearRect(0,0,mw,mh);
             if(mx>0&&mx<mw){
-                const x=Math.round(mx/20)*20+10;
-                const maxY=my+100;
-                const startY=my-150;
+                const y=Math.round(my/20)*20+10;
+                const startX=mx-180;
+                const endX=mx+20;
                 pos+=0.5;
-                for(let y=startY+pos%20;y<maxY;y+=20){
-                    if(y<0)continue;
-                    const dist=Math.abs(y-my)/150;
+                for(let x=startX+pos%20;x<endX;x+=20){
+                    if(x<0)continue;
+                    const dist=Math.abs(x-mx)/180;
                     const alpha=Math.max(0.1,1-dist);
                     mctx.fillStyle=`rgba(34,197,94,${alpha})`;
                     mctx.font='14px monospace';
-                    mctx.fillText(chars[Math.floor((y+pos)/7)%chars.length],x,y);
+                    mctx.fillText(chars[Math.floor((x+pos)/7)%chars.length],Math.round(x),y);
                 }
             }
             requestAnimationFrame(drawMatrix);
