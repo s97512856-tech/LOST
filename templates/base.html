@@ -114,27 +114,25 @@
         let mx=mw=window.innerWidth,my=mh=window.innerHeight;
         mc.width=mw;mc.height=mh;
         const chars='アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789LOST';
-        let trail=[];
-        window.addEventListener('mousemove',e=>{
-            const px=mx,py=my;
-            mx=e.clientX;my=e.clientY;
-            const steps=Math.max(1,Math.round(Math.hypot(mx-px,my-py)/5));
-            for(let s=0;s<steps;s++){
-                const t=s/steps;
-                trail.push({x:px+(mx-px)*t+Math.random()*8-4,y:py+(my-py)*t-10,ch:chars[Math.floor(Math.random()*chars.length)],sp:1+Math.random()*1.5,op:1,life:30});
-            }
-        });
-        window.addEventListener('resize',()=>{mw=window.innerWidth;mh=window.innerHeight;mc.width=mw;mc.height=mh});
+        let pos=0;
+        window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+        window.addEventListener('resize',()=>{mw=window.innerWidth;mh=window.innerHeight;mc.width=mw;mc.height=mh;pos=0});
         function drawMatrix(){
             mctx.clearRect(0,0,mw,mh);
-            trail=trail.filter(p=>{
-                p.y+=p.sp;p.life--;p.op-=0.03;
-                if(p.life<=0||p.op<=0)return false;
-                mctx.fillStyle=`rgba(34,197,94,${p.op})`;
-                mctx.font='13px monospace';
-                mctx.fillText(p.ch,Math.round(p.x),Math.round(p.y));
-                return true;
-            });
+            if(mx>0&&mx<mw){
+                const x=Math.round(mx/20)*20+10;
+                const maxY=my+100;
+                const startY=my-150;
+                pos+=0.5;
+                for(let y=startY+pos%20;y<maxY;y+=20){
+                    if(y<0)continue;
+                    const dist=Math.abs(y-my)/150;
+                    const alpha=Math.max(0.1,1-dist);
+                    mctx.fillStyle=`rgba(34,197,94,${alpha})`;
+                    mctx.font='14px monospace';
+                    mctx.fillText(chars[Math.floor((y+pos)/7)%chars.length],x,y);
+                }
+            }
             requestAnimationFrame(drawMatrix);
         }
         drawMatrix();
