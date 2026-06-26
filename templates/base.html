@@ -115,13 +115,13 @@
         mc.width=mw;mc.height=mh;
         const chars='アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789LOST';
         let parts=[],mx=mw/2,my=mh/2;
-        onmousemove=e=>{mx=e.clientX;my=e.clientY;for(let i=0;i<3;i++)parts.push({x:mx+(Math.random()-0.5)*30,y:my-10+Math.random()*20,vx:(Math.random()-0.5)*2-0.5,vy:-Math.random()*2-0.5,life:1,ch:chars[Math.floor(Math.random()*chars.length)]})};
+        onmousemove=e=>{mx=e.clientX;my=e.clientY;for(let i=0;i<3;i++)parts.push({x:mx+(Math.random()-0.5)*30,y:my-20+Math.random()*20,vx:(Math.random()-0.5)*2-0.5,vy:Math.random()*2+1,life:1,ch:chars[Math.floor(Math.random()*chars.length)]})};
         onresize=()=>{mw=innerWidth;mh=innerHeight;mc.width=mw;mc.height=mh};
         function draw(){
             mctx.clearRect(0,0,mw,mh);
             for(let i=parts.length-1;i>=0;i--){
                 const p=parts[i];
-                p.x+=p.vx;p.y+=p.vy;p.vy-=0.03;p.vx*=0.98;p.life-=0.012;
+                p.x+=p.vx;p.y+=p.vy;p.vy+=0.03;p.vx*=0.98;p.life-=0.012;
                 if(p.life<=0||p.y<-50||p.x<-50||p.x>mw+50){parts.splice(i,1);continue}
                 const sz=10+Math.round((1-p.life)*10);
                 mctx.font=sz+'px monospace';
