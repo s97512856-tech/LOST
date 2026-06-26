@@ -106,7 +106,7 @@ def init_db():
             ]
             for p in default_products:
                 db.execute('INSERT INTO products (name,name_ar,description,desc_ar,price,category) VALUES (?,?,?,?,?,?)', p)
-        db.execute("UPDATE products SET file_url = 'p1_test_product.svg', image = 'p1_test_product.svg' WHERE id = 1 AND (file_url IS NULL OR file_url = '')")
+        db.execute("UPDATE products SET file_url = 'p1_test_product.svg' WHERE id = 1 AND (file_url IS NULL OR file_url = '')")
 
 class User(UserMixin):
     def __init__(self, row):
@@ -133,10 +133,6 @@ def admin_required(f):
 @app.context_processor
 def inject_now():
     return {'now': datetime.now()}
-
-@app.route('/uploads/<path:filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/')
 def index():
