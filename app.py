@@ -7,10 +7,12 @@ from werkzeug.utils import secure_filename
 from functools import wraps
 
 app = Flask(__name__)
-app.secret_key = os.urandom(32).hex()
+app.secret_key = 'L0ST_S3CR3T_K3Y_2026_!@#$%'
 app.config['DATABASE'] = os.path.join(os.path.dirname(__file__), 'lost.db')
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'uploads')
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
+app.config['REMEMBER_COOKIE_DURATION'] = 60 * 60 * 24 * 365  # 1 year
+app.config['PERMANENT_SESSION_LIFETIME'] = 60 * 60 * 24 * 365  # 1 year
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 login_manager = LoginManager()
@@ -172,8 +174,11 @@ def register():
             with get_db() as db:
                 db.execute('INSERT INTO users (username, email, password) VALUES (?,?,?)',
                           (username, email, generate_password_hash(password)))
-            flash('Registered! You can login now / تم التسجيل! سجل الدخول الآن', 'success')
-            return redirect(url_for('login'))
+                row = db.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
+            login_user(User(row), remember=True)
+            flask_session.permanent = True
+            flash('Registered and logged in! / تم التسجيل وتسجيل الدخول!', 'success')
+            return redirect(url_for('index'))
         except sqlite3.IntegrityError:
             flash('Username or email exists / الاسم أو البريد موجود', 'error')
     return render_template('register.html')
@@ -183,11 +188,12 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username', '').strip()
         password = request.form.get('password', '')
+        remember = request.form.get('remember', 'off') == 'on'
         with get_db() as db:
             row = db.execute('SELECT * FROM users WHERE username = ? OR email = ?',
                            (username, username)).fetchone()
         if row and check_password_hash(row['password'], password):
-            login_user(User(row))
+            login_user(User(row), remember=remember)
             flask_session.permanent = True
             next_page = request.args.get('next')
             return redirect(next_page or url_for('index'))
