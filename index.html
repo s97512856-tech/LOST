@@ -14,11 +14,11 @@
         nav a{color:#f0f0f0;text-decoration:none;font-size:.95rem;transition:color .3s}
         nav a:hover{color:#22c55e}
         section{padding:100px 40px;max-width:900px;margin:0 auto}
-        #hero{padding-top:180px;text-align:center;position:relative;overflow:visible}
-        #hero h1{font-size:4rem;font-weight:800;letter-spacing:4px;margin-bottom:10px}
-        #hero p{color:#888;font-size:1.2rem;margin-bottom:5px}
-        #hero .ar{color:#22c55e;font-size:1rem;margin-bottom:25px}
-        .btn{display:inline-block;padding:12px 30px;background:#22c55e;color:#0a0a0a;text-decoration:none;font-weight:600;border-radius:6px;transition:.3s}
+        #hero{padding-top:180px;text-align:center;position:relative;overflow:visible;min-height:100vh}
+        #hero h1{font-size:4rem;font-weight:800;letter-spacing:4px;margin-bottom:10px;position:relative;z-index:2}
+        #hero p{color:#888;font-size:1.2rem;margin-bottom:5px;position:relative;z-index:2}
+        #hero .ar{color:#22c55e;font-size:1rem;margin-bottom:25px;position:relative;z-index:2}
+        .btn{display:inline-block;padding:12px 30px;background:#22c55e;color:#0a0a0a;text-decoration:none;font-weight:600;border-radius:6px;transition:.3s;position:relative;z-index:2}
         .btn:hover{background:#16a34a;transform:translateY(-2px)}
         h2{font-size:2rem;margin-bottom:40px;color:#22c55e;text-align:center}
         h2 small{display:block;font-size:.9rem;color:#888;margin-top:4px}
@@ -42,6 +42,74 @@
         footer{text-align:center;padding:30px;color:#444;font-size:.85rem}
         footer .ar{color:#333;font-size:.8rem}
         @media (max-width:600px){nav{padding:15px 20px;flex-direction:column;gap:10px}#hero h1{font-size:2.5rem}section{padding:80px 20px}}
+
+        /* 3D CSS Robot */
+        .robot-3d-wrap{position:absolute;right:8%;top:50%;transform:translateY(-50%);width:280px;height:320px;perspective:800px;pointer-events:none;z-index:1;opacity:0.45;transition:opacity .4s}
+        #hero:hover .robot-3d-wrap{opacity:0.7}
+        .robot-3d{width:100%;height:100%;transform-style:preserve-3d;animation:r3dFloat 5s ease-in-out infinite}
+        @keyframes r3dFloat{0%,100%{transform:translateY(0) rotateY(-15deg) rotateX(5deg)}25%{transform:translateY(-18px) rotateY(5deg) rotateX(-3deg)}50%{transform:translateY(-8px) rotateY(20deg) rotateX(8deg)}75%{transform:translateY(-22px) rotateY(-5deg) rotateX(-5deg)}}
+        .r3d-body{width:100%;height:100%;transform-style:preserve-3d;position:relative}
+        .r3d-bubble{position:absolute;top:-42px;left:50%;transform:translateX(-50%) translateZ(65px);background:linear-gradient(145deg,rgba(10,10,10,0.95),rgba(20,20,20,0.98));border:1px solid rgba(34,197,94,0.55);border-radius:14px;padding:9px 18px;box-shadow:0 0 20px rgba(34,197,94,0.3),0 0 40px rgba(34,197,94,0.1),inset 0 0 10px rgba(34,197,94,0.05);z-index:20;transform-style:preserve-3d;animation:bubbleAppear 2.5s ease-in-out 1s 1,bubbleFloat 3s ease-in-out infinite 3.5s;opacity:0;pointer-events:none}
+        .r3d-bubble-text{color:#22c55e;font-size:13px;font-weight:700;letter-spacing:1.2px;text-shadow:0 0 10px rgba(34,197,94,0.8),0 0 20px rgba(34,197,94,0.4);font-family:'Segoe UI',system-ui,sans-serif}
+        .r3d-bubble-tail{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid rgba(34,197,94,0.55)}
+        @keyframes bubbleAppear{0%{opacity:0;transform:translateX(-50%) translateZ(65px) scale(0.5) translateY(10px)}20%{opacity:1;transform:translateX(-50%) translateZ(65px) scale(1.1) translateY(0)}30%{transform:translateX(-50%) translateZ(65px) scale(0.95) translateY(0)}40%{opacity:1;transform:translateX(-50%) translateZ(65px) scale(1) translateY(0)}85%{opacity:1;transform:translateX(-50%) translateZ(65px) scale(1) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateZ(65px) scale(0.8) translateY(-5px)}}
+        @keyframes bubbleFloat{0%,100%{transform:translateX(-50%) translateZ(65px) translateY(0)}50%{transform:translateX(-50%) translateZ(65px) translateY(-4px)}}
+        .r3d-neck{position:absolute;top:80px;left:50%;transform:translateX(-50%);width:22px;height:14px;background:linear-gradient(145deg,#1a1a1a,#111);border:1px solid rgba(34,197,94,0.25);border-radius:6px;z-index:2;box-shadow:0 0 8px rgba(34,197,94,0.1)}
+        .r3d-head{width:80px;height:70px;position:absolute;top:10px;left:50%;transform:translateX(-50%) translateZ(20px);transform-style:preserve-3d}
+        .r3d-face{position:absolute;width:80px;height:70px;background:linear-gradient(145deg,#1f1f1f,#0d0d0d);border:1px solid rgba(34,197,94,0.35);box-shadow:0 0 15px rgba(34,197,94,0.15),inset 0 0 8px rgba(34,197,94,0.05)}
+        .r3d-front{transform:translateZ(40px)}
+        .r3d-back{transform:rotateY(180deg) translateZ(40px)}
+        .r3d-left{transform:rotateY(-90deg) translateZ(40px);width:80px}
+        .r3d-right{transform:rotateY(90deg) translateZ(40px);width:80px}
+        .r3d-top{transform:rotateX(90deg) translateZ(35px);width:80px;height:80px}
+        .r3d-bottom{transform:rotateX(-90deg) translateZ(35px);width:80px;height:80px}
+        .r3d-brow{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:44px;height:3px;background:linear-gradient(90deg,transparent,#22c55e,transparent);border-radius:2px;opacity:0.6}
+        .r3d-eye{position:absolute;width:14px;height:11px;background:radial-gradient(ellipse at 35% 30%,#86efac,#22c55e,#14532d);border-radius:50%;top:16px;box-shadow:0 0 10px rgba(34,197,94,0.9),0 0 25px rgba(34,197,94,0.4),inset 0 0 4px rgba(255,255,255,0.3);border:1px solid rgba(34,197,94,0.5);transition:transform 0.15s ease;animation:r3dBlink 3.5s ease-in-out infinite}
+        .r3d-eye.r3d-left{left:14px}
+        .r3d-eye.r3d-right{right:14px}
+        @keyframes r3dBlink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(0.15)}}
+        .r3d-mouth{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:22px;height:8px;border-bottom:2.5px solid rgba(34,197,94,0.9);border-left:2.5px solid transparent;border-right:2.5px solid transparent;border-radius:0 0 12px 12px;opacity:0.95;box-shadow:0 2px 8px rgba(34,197,94,0.25);animation:smileGlow 3s ease-in-out infinite}
+        @keyframes smileGlow{0%,100%{opacity:0.95;border-bottom-color:rgba(34,197,94,0.9)}50%{opacity:0.6;border-bottom-color:rgba(34,197,94,0.5)}}
+        .r3d-blush{position:absolute;top:32px;width:10px;height:6px;background:radial-gradient(ellipse,rgba(34,197,94,0.15),transparent);border-radius:50%;filter:blur(2px)}
+        .r3d-blush.r3d-left{left:8px}
+        .r3d-blush.r3d-right{right:8px}
+        .r3d-antenna{position:absolute;top:-16px;left:50%;transform:translateX(-50%) translateZ(20px);width:5px;height:18px;background:linear-gradient(180deg,#22c55e,#16a34a,#0f0f0f);border-radius:3px;box-shadow:0 0 10px rgba(34,197,94,0.8);transform-style:preserve-3d}
+        .r3d-antenna-glow{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:#22c55e;border-radius:50%;box-shadow:0 0 15px rgba(34,197,94,0.9),0 0 40px rgba(34,197,94,0.3);animation:antennaGlow 1.5s ease-in-out infinite}
+        @keyframes antennaGlow{0%,100%{opacity:0.8;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.3);box-shadow:0 0 25px rgba(34,197,94,1),0 0 60px rgba(34,197,94,0.5)}}
+        .r3d-torso{width:100px;height:90px;position:absolute;top:95px;left:50%;transform:translateX(-50%) translateZ(10px);transform-style:preserve-3d}
+        .r3d-tface{position:absolute;background:linear-gradient(145deg,#141414,#0a0a0a);border:1px solid rgba(34,197,94,0.25);box-shadow:0 0 12px rgba(34,197,94,0.1)}
+        .r3d-tfront{width:100px;height:90px;transform:translateZ(30px)}
+        .r3d-tback{width:100px;height:90px;transform:rotateY(180deg) translateZ(30px)}
+        .r3d-tleft{width:60px;height:90px;transform:rotateY(-90deg) translateZ(50px)}
+        .r3d-tright{width:60px;height:90px;transform:rotateY(90deg) translateZ(50px)}
+        .r3d-ttop{width:100px;height:60px;transform:rotateX(90deg) translateZ(45px)}
+        .r3d-tbottom{width:100px;height:60px;transform:rotateX(-90deg) translateZ(45px)}
+        .r3d-core{width:26px;height:26px;background:radial-gradient(circle at 35% 35%,#86efac,#22c55e,#14532d);border-radius:50%;box-shadow:0 0 20px rgba(34,197,94,0.8),0 0 50px rgba(34,197,94,0.3),inset 0 0 10px rgba(255,255,255,0.2);animation:r3dCore 2s ease-in-out infinite;position:relative}
+        .r3d-core::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(34,197,94,0.3);animation:r3dCoreRing 2s ease-in-out infinite}
+        .r3d-lines{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:60px;height:2px;background:linear-gradient(90deg,transparent,rgba(34,197,94,0.3),transparent);border-radius:1px;opacity:0.6}
+        .r3d-lines::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:40px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,197,94,0.2),transparent);border-radius:1px}
+        @keyframes r3dCore{0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(34,197,94,0.8),0 0 50px rgba(34,197,94,0.3)}50%{transform:scale(1.15);box-shadow:0 0 30px rgba(34,197,94,1),0 0 80px rgba(34,197,94,0.5)}}
+        @keyframes r3dCoreRing{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.4);opacity:0}}
+        .r3d-arm{width:28px;height:65px;position:absolute;top:100px;transform-style:preserve-3d}
+        .r3d-arm.r3d-al{left:30px;transform-origin:top center;animation:r3dArmFloat 3s ease-in-out infinite;animation-delay:0.6s}
+        .r3d-arm.r3d-ar{right:30px;transform-origin:top center;animation:r3dWaveGreet 2.5s ease-in-out 1.2s 1,r3dArmFloat 3s ease-in-out infinite 3.7s}
+        @keyframes r3dWaveGreet{0%{transform:rotateZ(-12deg) rotateY(10deg)}15%{transform:rotateZ(-70deg) rotateY(45deg)}30%{transform:rotateZ(-25deg) rotateY(20deg)}45%{transform:rotateZ(-70deg) rotateY(45deg)}60%{transform:rotateZ(-25deg) rotateY(20deg)}75%{transform:rotateZ(-70deg) rotateY(45deg)}100%{transform:rotateZ(-12deg) rotateY(10deg)}}
+        @keyframes r3dArmFloat{0%,100%{transform:rotateZ(-12deg) rotateY(10deg)}50%{transform:rotateZ(12deg) rotateY(-10deg)}}
+        .r3d-aface{position:absolute;background:linear-gradient(145deg,#1a1a1a,#0f0f0f);border:1px solid rgba(34,197,94,0.2)}
+        .r3d-afront{width:28px;height:65px;transform:translateZ(14px)}
+        .r3d-aback{width:28px;height:65px;transform:rotateY(180deg) translateZ(14px)}
+        .r3d-aleft{width:28px;height:65px;transform:rotateY(-90deg) translateZ(14px)}
+        .r3d-aright{width:28px;height:65px;transform:rotateY(90deg) translateZ(14px)}
+        .r3d-atop{width:28px;height:28px;transform:rotateX(90deg) translateZ(32px)}
+        .r3d-abottom{width:28px;height:28px;transform:rotateX(-90deg) translateZ(32px)}
+        .r3d-hand{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:16px;height:16px;background:radial-gradient(circle at 30% 30%,#4ade80,#22c55e,#14532d);border-radius:50%;box-shadow:0 0 10px rgba(34,197,94,0.6),0 0 20px rgba(34,197,94,0.2)}
+        .r3d-thruster{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:36px;height:6px;background:radial-gradient(ellipse,rgba(34,197,94,0.5),rgba(34,197,94,0.1),transparent);border-radius:50%;filter:blur(3px);animation:thrusterPulse 0.8s ease-in-out infinite}
+        @keyframes thrusterPulse{0%,100%{opacity:0.6;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.2)}}
+        .r3d-glow{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);width:140px;height:20px;background:radial-gradient(ellipse at center,rgba(34,197,94,0.25),transparent 70%);filter:blur(8px);animation:r3dGlow 4s ease-in-out infinite}
+        @keyframes r3dGlow{0%,100%{opacity:0.4;transform:translateX(-50%) scale(1)}50%{opacity:0.7;transform:translateX(-50%) scale(1.3)}}
+        .r3d-floor{position:absolute;bottom:20px;left:50%;transform:translateX(-50%) rotateX(70deg);width:120px;height:120px;background:radial-gradient(ellipse at center,rgba(34,197,94,0.15),transparent 70%);border-radius:50%;filter:blur(4px);animation:r3dFloor 5s ease-in-out infinite}
+        @keyframes r3dFloor{0%,100%{opacity:0.3;transform:translateX(-50%) rotateX(70deg) scale(1)}50%{opacity:0.5;transform:translateX(-50%) rotateX(70deg) scale(0.85)}}
+        @media (max-width:768px){.robot-3d-wrap{right:0;width:160px;height:180px;opacity:0.35;transform:translateY(-50%) scale(0.55)}}
     </style>
 </head>
 <body>
@@ -58,6 +126,7 @@
         <div class="robot-3d-wrap">
             <div class="robot-3d" id="robot3d">
                 <div class="r3d-body">
+                    <div class="r3d-bubble"><div class="r3d-bubble-text">Hello!</div><div class="r3d-bubble-tail"></div></div>
                     <div class="r3d-neck"></div>
                     <div class="r3d-head">
                         <div class="r3d-face r3d-front">
@@ -209,69 +278,6 @@
         const observer=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting)e.target.style.opacity='1'})},{threshold:.1});
         document.querySelectorAll('.card').forEach(c=>{c.style.transition='opacity .6s, transform .3s';observer.observe(c)});
     </script>
-    <style>
-        .robot-3d-wrap{position:absolute;right:8%;top:50%;transform:translateY(-50%);width:280px;height:320px;perspective:800px;pointer-events:none;z-index:0;opacity:0.45;transition:opacity .4s}
-        #hero:hover .robot-3d-wrap{opacity:0.7}
-        .robot-3d{width:100%;height:100%;transform-style:preserve-3d;animation:r3dFloat 5s ease-in-out infinite}
-        @keyframes r3dFloat{0%,100%{transform:translateY(0) rotateY(-15deg) rotateX(5deg)}25%{transform:translateY(-18px) rotateY(5deg) rotateX(-3deg)}50%{transform:translateY(-8px) rotateY(20deg) rotateX(8deg)}75%{transform:translateY(-22px) rotateY(-5deg) rotateX(-5deg)}}
-        .r3d-body{width:100%;height:100%;transform-style:preserve-3d;position:relative}
-        .r3d-neck{position:absolute;top:80px;left:50%;transform:translateX(-50%);width:22px;height:14px;background:linear-gradient(145deg,#1a1a1a,#111);border:1px solid rgba(34,197,94,0.25);border-radius:6px;z-index:2;box-shadow:0 0 8px rgba(34,197,94,0.1)}
-        .r3d-head{width:80px;height:70px;position:absolute;top:10px;left:50%;transform:translateX(-50%) translateZ(20px);transform-style:preserve-3d}
-        .r3d-face{position:absolute;width:80px;height:70px;background:linear-gradient(145deg,#1f1f1f,#0d0d0d);border:1px solid rgba(34,197,94,0.35);box-shadow:0 0 15px rgba(34,197,94,0.15),inset 0 0 8px rgba(34,197,94,0.05)}
-        .r3d-front{transform:translateZ(40px)}
-        .r3d-back{transform:rotateY(180deg) translateZ(40px)}
-        .r3d-left{transform:rotateY(-90deg) translateZ(40px);width:80px}
-        .r3d-right{transform:rotateY(90deg) translateZ(40px);width:80px}
-        .r3d-top{transform:rotateX(90deg) translateZ(35px);width:80px;height:80px}
-        .r3d-bottom{transform:rotateX(-90deg) translateZ(35px);width:80px;height:80px}
-        .r3d-brow{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:44px;height:3px;background:linear-gradient(90deg,transparent,#22c55e,transparent);border-radius:2px;opacity:0.6}
-        .r3d-eye{position:absolute;width:14px;height:11px;background:radial-gradient(ellipse at 35% 30%,#86efac,#22c55e,#14532d);border-radius:50%;top:16px;box-shadow:0 0 10px rgba(34,197,94,0.9),0 0 25px rgba(34,197,94,0.4),inset 0 0 4px rgba(255,255,255,0.3);border:1px solid rgba(34,197,94,0.5);transition:transform 0.15s ease;animation:r3dBlink 3.5s ease-in-out infinite}
-        .r3d-eye.r3d-left{left:14px}
-        .r3d-eye.r3d-right{right:14px}
-        @keyframes r3dBlink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(0.15)}}
-        .r3d-mouth{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:18px;height:6px;border-bottom:2px solid rgba(34,197,94,0.85);border-left:2px solid transparent;border-right:2px solid transparent;border-radius:0 0 10px 10px;opacity:0.9;box-shadow:0 2px 6px rgba(34,197,94,0.2);animation:smileGlow 3s ease-in-out infinite}
-        @keyframes smileGlow{0%,100%{opacity:0.9;border-bottom-color:rgba(34,197,94,0.85)}50%{opacity:0.6;border-bottom-color:rgba(34,197,94,0.5)}}
-        .r3d-blush{position:absolute;top:32px;width:10px;height:6px;background:radial-gradient(ellipse,rgba(34,197,94,0.15),transparent);border-radius:50%;filter:blur(2px)}
-        .r3d-blush.r3d-left{left:8px}
-        .r3d-blush.r3d-right{right:8px}
-        .r3d-antenna{position:absolute;top:-16px;left:50%;transform:translateX(-50%) translateZ(20px);width:5px;height:18px;background:linear-gradient(180deg,#22c55e,#16a34a,#0f0f0f);border-radius:3px;box-shadow:0 0 10px rgba(34,197,94,0.8);transform-style:preserve-3d}
-        .r3d-antenna-glow{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:#22c55e;border-radius:50%;box-shadow:0 0 15px rgba(34,197,94,0.9),0 0 40px rgba(34,197,94,0.3);animation:antennaGlow 1.5s ease-in-out infinite}
-        @keyframes antennaGlow{0%,100%{opacity:0.8;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.3);box-shadow:0 0 25px rgba(34,197,94,1),0 0 60px rgba(34,197,94,0.5)}}
-        .r3d-torso{width:100px;height:90px;position:absolute;top:95px;left:50%;transform:translateX(-50%) translateZ(10px);transform-style:preserve-3d}
-        .r3d-tface{position:absolute;background:linear-gradient(145deg,#141414,#0a0a0a);border:1px solid rgba(34,197,94,0.25);box-shadow:0 0 12px rgba(34,197,94,0.1)}
-        .r3d-tfront{width:100px;height:90px;transform:translateZ(30px)}
-        .r3d-tback{width:100px;height:90px;transform:rotateY(180deg) translateZ(30px)}
-        .r3d-tleft{width:60px;height:90px;transform:rotateY(-90deg) translateZ(50px)}
-        .r3d-tright{width:60px;height:90px;transform:rotateY(90deg) translateZ(50px)}
-        .r3d-ttop{width:100px;height:60px;transform:rotateX(90deg) translateZ(45px)}
-        .r3d-tbottom{width:100px;height:60px;transform:rotateX(-90deg) translateZ(45px)}
-        .r3d-core{width:26px;height:26px;background:radial-gradient(circle at 35% 35%,#86efac,#22c55e,#14532d);border-radius:50%;box-shadow:0 0 20px rgba(34,197,94,0.8),0 0 50px rgba(34,197,94,0.3),inset 0 0 10px rgba(255,255,255,0.2);animation:r3dCore 2s ease-in-out infinite;position:relative}
-        .r3d-core::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(34,197,94,0.3);animation:r3dCoreRing 2s ease-in-out infinite}
-        .r3d-lines{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:60px;height:2px;background:linear-gradient(90deg,transparent,rgba(34,197,94,0.3),transparent);border-radius:1px;opacity:0.6}
-        .r3d-lines::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:40px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,197,94,0.2),transparent);border-radius:1px}
-        @keyframes r3dCore{0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(34,197,94,0.8),0 0 50px rgba(34,197,94,0.3)}50%{transform:scale(1.15);box-shadow:0 0 30px rgba(34,197,94,1),0 0 80px rgba(34,197,94,0.5)}}
-        @keyframes r3dCoreRing{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.4);opacity:0}}
-        .r3d-arm{width:28px;height:65px;position:absolute;top:100px;transform-style:preserve-3d}
-        .r3d-arm.r3d-al{left:30px;transform-origin:top center;animation:r3dArmFloat 3s ease-in-out infinite;animation-delay:0.6s}
-        .r3d-arm.r3d-ar{right:30px;transform-origin:top center;animation:r3dWaveGreet 2.5s ease-in-out 0.8s 1,r3dArmFloat 3s ease-in-out infinite 3.3s}
-        @keyframes r3dWaveGreet{0%{transform:rotateZ(-12deg) rotateY(10deg)}15%{transform:rotateZ(-55deg) rotateY(35deg)}30%{transform:rotateZ(-15deg) rotateY(15deg)}45%{transform:rotateZ(-55deg) rotateY(35deg)}60%{transform:rotateZ(-15deg) rotateY(15deg)}75%{transform:rotateZ(-55deg) rotateY(35deg)}100%{transform:rotateZ(-12deg) rotateY(10deg)}}
-        @keyframes r3dArmFloat{0%,100%{transform:rotateZ(-12deg) rotateY(10deg)}50%{transform:rotateZ(12deg) rotateY(-10deg)}}
-        .r3d-aface{position:absolute;background:linear-gradient(145deg,#1a1a1a,#0f0f0f);border:1px solid rgba(34,197,94,0.2)}
-        .r3d-afront{width:28px;height:65px;transform:translateZ(14px)}
-        .r3d-aback{width:28px;height:65px;transform:rotateY(180deg) translateZ(14px)}
-        .r3d-aleft{width:28px;height:65px;transform:rotateY(-90deg) translateZ(14px)}
-        .r3d-aright{width:28px;height:65px;transform:rotateY(90deg) translateZ(14px)}
-        .r3d-atop{width:28px;height:28px;transform:rotateX(90deg) translateZ(32px)}
-        .r3d-abottom{width:28px;height:28px;transform:rotateX(-90deg) translateZ(32px)}
-        .r3d-hand{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:16px;height:16px;background:radial-gradient(circle at 30% 30%,#4ade80,#22c55e,#14532d);border-radius:50%;box-shadow:0 0 10px rgba(34,197,94,0.6),0 0 20px rgba(34,197,94,0.2)}
-        .r3d-thruster{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:36px;height:6px;background:radial-gradient(ellipse,rgba(34,197,94,0.5),rgba(34,197,94,0.1),transparent);border-radius:50%;filter:blur(3px);animation:thrusterPulse 0.8s ease-in-out infinite}
-        @keyframes thrusterPulse{0%,100%{opacity:0.6;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.2)}}
-        .r3d-glow{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);width:140px;height:20px;background:radial-gradient(ellipse at center,rgba(34,197,94,0.25),transparent 70%);filter:blur(8px);animation:r3dGlow 4s ease-in-out infinite}
-        @keyframes r3dGlow{0%,100%{opacity:0.4;transform:translateX(-50%) scale(1)}50%{opacity:0.7;transform:translateX(-50%) scale(1.3)}}
-        .r3d-floor{position:absolute;bottom:20px;left:50%;transform:translateX(-50%) rotateX(70deg);width:120px;height:120px;background:radial-gradient(ellipse at center,rgba(34,197,94,0.15),transparent 70%);border-radius:50%;filter:blur(4px);animation:r3dFloor 5s ease-in-out infinite}
-        @keyframes r3dFloor{0%,100%{opacity:0.3;transform:translateX(-50%) rotateX(70deg) scale(1)}50%{opacity:0.5;transform:translateX(-50%) rotateX(70deg) scale(0.85)}}
-        @media (max-width:768px){.robot-3d-wrap{right:0;width:160px;height:180px;opacity:0.35;transform:translateY(-50%) scale(0.55)}}
-    </style>
     <script>
         (function(){
             const hero = document.getElementById('hero');

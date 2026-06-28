@@ -87,6 +87,7 @@
     <div class="robot-3d-wrap">
         <div class="robot-3d" id="robot3d">
             <div class="r3d-body">
+                <div class="r3d-bubble"><div class="r3d-bubble-text">Hello!</div><div class="r3d-bubble-tail"></div></div>
                 <div class="r3d-neck"></div>
                 <div class="r3d-head">
                     <div class="r3d-face r3d-front">
@@ -173,11 +174,16 @@
     .r3d-eye.r3d-left{left:14px}
     .r3d-eye.r3d-right{right:14px}
     @keyframes r3dBlink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(0.15)}}
-    .r3d-mouth{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:18px;height:6px;border-bottom:2px solid rgba(34,197,94,0.85);border-left:2px solid transparent;border-right:2px solid transparent;border-radius:0 0 10px 10px;opacity:0.9;box-shadow:0 2px 6px rgba(34,197,94,0.2);animation:smileGlow 3s ease-in-out infinite}
+    .r3d-mouth{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:22px;height:8px;border-bottom:2.5px solid rgba(34,197,94,0.9);border-left:2.5px solid transparent;border-right:2.5px solid transparent;border-radius:0 0 12px 12px;opacity:0.95;box-shadow:0 2px 8px rgba(34,197,94,0.25);animation:smileGlow 3s ease-in-out infinite}
     @keyframes smileGlow{0%,100%{opacity:0.9;border-bottom-color:rgba(34,197,94,0.85)}50%{opacity:0.6;border-bottom-color:rgba(34,197,94,0.5)}}
     .r3d-blush{position:absolute;top:32px;width:10px;height:6px;background:radial-gradient(ellipse,rgba(34,197,94,0.15),transparent);border-radius:50%;filter:blur(2px)}
     .r3d-blush.r3d-left{left:8px}
     .r3d-blush.r3d-right{right:8px}
+    .r3d-bubble{position:absolute;top:-50px;left:50%;transform:translateX(-50%) translateZ(60px);background:linear-gradient(145deg,rgba(10,10,10,0.95),rgba(20,20,20,0.98));border:1px solid rgba(34,197,94,0.6);border-radius:14px;padding:8px 18px;box-shadow:0 0 20px rgba(34,197,94,0.3),0 0 40px rgba(34,197,94,0.1),inset 0 0 10px rgba(34,197,94,0.05);z-index:10;transform-style:preserve-3d;animation:bubbleAppear 2.5s ease-in-out 0.8s 1,bubbleFloat 3s ease-in-out infinite 3.3s;opacity:0;pointer-events:none}
+    .r3d-bubble-text{color:#22c55e;font-size:13px;font-weight:700;letter-spacing:1px;text-shadow:0 0 10px rgba(34,197,94,0.8),0 0 20px rgba(34,197,94,0.4);font-family:'Segoe UI',system-ui,sans-serif}
+    .r3d-bubble-tail{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid rgba(34,197,94,0.6)}
+    @keyframes bubbleAppear{0%{opacity:0;transform:translateX(-50%) translateZ(60px) scale(0.5) translateY(10px)}20%{opacity:1;transform:translateX(-50%) translateZ(60px) scale(1.1) translateY(0)}30%{transform:translateX(-50%) translateZ(60px) scale(0.95) translateY(0)}40%{opacity:1;transform:translateX(-50%) translateZ(60px) scale(1) translateY(0)}85%{opacity:1;transform:translateX(-50%) translateZ(60px) scale(1) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateZ(60px) scale(0.8) translateY(-5px)}}
+    @keyframes bubbleFloat{0%,100%{transform:translateX(-50%) translateZ(60px) translateY(0)}50%{transform:translateX(-50%) translateZ(60px) translateY(-4px)}}
     .r3d-antenna{position:absolute;top:-16px;left:50%;transform:translateX(-50%) translateZ(20px);width:5px;height:18px;background:linear-gradient(180deg,#22c55e,#16a34a,#0f0f0f);border-radius:3px;box-shadow:0 0 10px rgba(34,197,94,0.8);transform-style:preserve-3d}
     .r3d-antenna-glow{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:#22c55e;border-radius:50%;box-shadow:0 0 15px rgba(34,197,94,0.9),0 0 40px rgba(34,197,94,0.3);animation:antennaGlow 1.5s ease-in-out infinite}
     @keyframes antennaGlow{0%,100%{opacity:0.8;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.3);box-shadow:0 0 25px rgba(34,197,94,1),0 0 60px rgba(34,197,94,0.5)}}
@@ -198,7 +204,7 @@
     .r3d-arm{width:28px;height:65px;position:absolute;top:100px;transform-style:preserve-3d}
     .r3d-arm.r3d-al{left:30px;transform-origin:top center;animation:r3dArmFloat 3s ease-in-out infinite;animation-delay:0.6s}
     .r3d-arm.r3d-ar{right:30px;transform-origin:top center;animation:r3dWaveGreet 2.5s ease-in-out 0.8s 1,r3dArmFloat 3s ease-in-out infinite 3.3s}
-    @keyframes r3dWaveGreet{0%{transform:rotateZ(-12deg) rotateY(10deg)}15%{transform:rotateZ(-55deg) rotateY(35deg)}30%{transform:rotateZ(-15deg) rotateY(15deg)}45%{transform:rotateZ(-55deg) rotateY(35deg)}60%{transform:rotateZ(-15deg) rotateY(15deg)}75%{transform:rotateZ(-55deg) rotateY(35deg)}100%{transform:rotateZ(-12deg) rotateY(10deg)}}
+    @keyframes r3dWaveGreet{0%{transform:rotateZ(-12deg) rotateY(10deg)}15%{transform:rotateZ(-70deg) rotateY(45deg)}30%{transform:rotateZ(-25deg) rotateY(20deg)}45%{transform:rotateZ(-70deg) rotateY(45deg)}60%{transform:rotateZ(-25deg) rotateY(20deg)}75%{transform:rotateZ(-70deg) rotateY(45deg)}100%{transform:rotateZ(-12deg) rotateY(10deg)}}
     @keyframes r3dArmFloat{0%,100%{transform:rotateZ(-12deg) rotateY(10deg)}50%{transform:rotateZ(12deg) rotateY(-10deg)}}
     .r3d-aface{position:absolute;background:linear-gradient(145deg,#1a1a1a,#0f0f0f);border:1px solid rgba(34,197,94,0.2)}
     .r3d-afront{width:28px;height:65px;transform:translateZ(14px)}
