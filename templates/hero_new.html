@@ -1,0 +1,91 @@
+<div class="hero" id="hero">
+    <div class="hero-bg">
+        <div class="hero-mesh"></div>
+        <div class="hero-orb orb-1"></div>
+        <div class="hero-orb orb-2"></div>
+        <div class="hero-orb orb-3"></div>
+    </div>
+
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            <span>Available for projects</span>
+        </div>
+
+        <h1 class="hero-headline">
+            Simple, smart solutions<br>
+            built for people who keep creating.
+        </h1>
+
+        <p class="hero-subtext">
+            Web development, bots, and automation — delivered clean and fast.
+        </p>
+
+        <div class="hero-cta">
+            <a href="{{ url_for('shop') }}" class="hero-cta-btn">
+                Browse Shop
+                <span class="hero-cta-arrow">→</span>
+            </a>
+            <a href="#about" class="hero-cta-link">
+                About Me
+                <span class="hero-cta-arrow">→</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="hero-scroll">
+        <div class="hero-scroll-line"></div>
+    </div>
+</div>
+
+<style>
+/* ─── Hero Background ─── */
+.hero{position:relative;min-height:100vh;overflow:hidden;display:flex;align-items:flex-end;padding:0 6%;padding-bottom:10vh;box-sizing:border-box}
+.hero-bg{position:absolute;inset:0;z-index:0;background:#0a0a0a}
+.hero-mesh{position:absolute;inset:0;background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(34,197,94,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(34,197,94,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(20,83,45,0.06) 0%, transparent 60%);
+    animation:meshShift 12s ease-in-out infinite}
+@keyframes meshShift{0%,100%{transform:scale(1) rotate(0deg)}33%{transform:scale(1.05) rotate(1deg)}66%{transform:scale(0.97) rotate(-0.5deg)}}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.4;animation:orbFloat 8s ease-in-out infinite}
+.orb-1{width:300px;height:300px;background:rgba(34,197,94,0.15);top:20%;left:10%;animation-delay:0s}
+.orb-2{width:250px;height:250px;background:rgba(20,83,45,0.2);top:50%;right:15%;animation-delay:-3s}
+.orb-3{width:200px;height:200px;background:rgba(34,197,94,0.1);bottom:20%;left:40%;animation-delay:-5s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0)}25%{transform:translate(20px,-30px)}50%{transform:translate(-10px,20px)}75%{transform:translate(15px,10px)}}
+
+/* ─── Hero Content ─── */
+.hero-content{position:relative;z-index:2;max-width:420px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(237,237,237,0.06);border:1px solid rgba(34,197,94,0.2);margin-bottom:20px;animation:fadeInUp 0.8s ease-out 0.3s both}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,0.6);animation:dotPulse 2s ease-in-out infinite}
+.hero-badge span{font-size:11.5px;font-weight:500;color:#22c55e;letter-spacing:0.3px}
+@keyframes dotPulse{0%,100%{opacity:1}50%{opacity:0.5}}
+
+.hero-headline{font-size:1.75rem;line-height:1.15;font-weight:500;color:#f0f0f0;letter-spacing:-0.02em;margin-bottom:16px;animation:fadeInUp 0.8s ease-out 0.5s both}
+.hero-subtext{font-size:13px;color:#888;font-weight:400;margin-bottom:28px;animation:fadeInUp 0.8s ease-out 0.7s both}
+
+.hero-cta{display:flex;align-items:center;gap:16px;animation:fadeInUp 0.8s ease-out 0.9s both}
+.hero-cta-btn{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:500;color:#0a0a0a;background:#22c55e;border:1px solid #22c55e;border-radius:999px;padding:12px 24px;text-decoration:none;transition:all 0.2s ease}
+.hero-cta-btn:hover{background:#16a34a;border-color:#16a34a;transform:translateY(-1px)}
+.hero-cta-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:#22c55e;text-decoration:none;transition:color 0.2s ease}
+.hero-cta-link:hover{color:#4ade80}
+.hero-cta-arrow{display:inline-block;transition:transform 0.2s ease}
+.hero-cta-btn:hover .hero-cta-arrow{transform:translateX(3px)}
+.hero-cta-link:hover .hero-cta-arrow{transform:translateX(3px)}
+
+.hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeInUp 0.8s ease-out 1.2s both}
+.hero-scroll-line{width:1px;height:40px;background:linear-gradient(180deg,rgba(34,197,94,0.6),transparent);animation:scrollLine 2s ease-in-out infinite}
+@keyframes scrollLine{0%,100%{transform:scaleY(1);opacity:0.6}50%{transform:scaleY(0.5);opacity:0.3}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── Mobile ─── */
+@media(max-width:768px){
+    .hero{padding:0 5%;padding-bottom:8vh}
+    .hero-headline{font-size:1.5rem}
+    .hero-cta{flex-direction:column;align-items:flex-start;gap:12px}
+    .hero-orb{filter:blur(60px);opacity:0.25}
+    .orb-1{width:200px;height:200px}
+    .orb-2{width:180px;height:180px}
+    .orb-3{width:150px;height:150px}
+}
+</style>
